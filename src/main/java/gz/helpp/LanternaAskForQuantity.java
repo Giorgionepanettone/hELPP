@@ -53,7 +53,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
                 try {
                     proceedButtonFunc();
                 } catch (SQLException | IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             });
             contentPanel.addComponent(proceedButton);
@@ -120,16 +120,13 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
 
             QuantityBean beanQuantity = new QuantityBean();
             beanQuantity.setQuantity(quantityTextField.getText());
-            controllerApplicativoDepositMenu.Deposit(beanQuantity);
+            controllerApplicativoDepositMenu.deposit(beanQuantity);
         }
         else if(this.type.equals(ModelTransaction.Type.WITHDRAW)){
             ControllerApplicativoWithdrawMenu controllerApplicativoWithdrawMenu = new ControllerApplicativoWithdrawMenu();
             QuantityBean beanQuantity = new QuantityBean();
             beanQuantity.setQuantity(quantityTextField.getText());
-            if(controllerApplicativoWithdrawMenu.Withdraw(quantityBean)){
-
-            }
-            else{
+            if(!controllerApplicativoWithdrawMenu.withdraw(quantityBean)){
                 this.errorLabel.setText("not enough money");
                 return;
             }
@@ -140,5 +137,9 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
 
     public void bindLanternaPortfolioScreen(LanternaPortfolioScreen lanternaPortfolioScreen){
         this.lanternaPortfolioScreen = lanternaPortfolioScreen;
+    }
+
+    public void closeOpenResources() throws IOException {
+        screen.close();
     }
 }

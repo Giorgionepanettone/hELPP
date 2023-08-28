@@ -24,13 +24,7 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
     @FXML
     private GridPane gridPane;
 
-    private String userName;
-
-    private FXMLLoader fxmlLoader;
-
     private CryptoUpdater cryptoUpdater;
-
-    private BitstampMarketDataService bitstampMarketDataService;
 
     private List<String> displayedCrypto;
 
@@ -43,9 +37,9 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
     @Override
     public void initializer(){
 
-        this.userName = ModelSession.getInstance().getModelUser().getNickName();
 
         try{
+            FXMLLoader fxmlLoader;
             fxmlLoader = new FXMLLoader(getClass().getResource("BuyMenu.fxml"));
             fxmlLoader.setController(this);
             Parent root = fxmlLoader.load();
@@ -61,9 +55,6 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
             e.printStackTrace();
         }
     }
-    public void setUsername(String userName){
-        this.userName = userName;
-    }
 
     static double getPrice(String symbol, BitstampMarketDataService bitstampMarketDataService) throws IOException {
         if(bitstampMarketDataService != null) {
@@ -76,7 +67,7 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
     }
 
     public void update() throws IOException {
-        bitstampMarketDataService = cryptoUpdater.getState();
+        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
         if(displayedCrypto == null) return;
 
         for(int i = 0; i < displayedCrypto.size(); i++){
@@ -146,31 +137,15 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
             String ticker = findSymbolForButton((Button) event.getSource(), 0, gridPane);
             String price1 = findSymbolForButton((Button) event.getSource(), 2, gridPane);
 
-            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity();
+            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransaction.Type.BUY, price1);
             controllerGraficoAskForQuantity.initializer();
 
-            controllerGraficoAskForQuantity.setTicker(ticker);
-            controllerGraficoAskForQuantity.setPriceLabel(price1);
-            controllerGraficoAskForQuantity.setType(ModelTransaction.Type.BUY);
         });
         buyButton.setFont(new Font(font, 30));
         buyButton.setStyle("-fx-background-color: #FFD700;");
         buyButton.setPrefSize(120, 1);
 
         gridPane.addRow(rowIndex, symbolLabel, nameLabel, priceLabel, buyButton);
-    }
-
-    private void removeRow(String symbol) {
-        // Get the row index of the row to remove
-        int rowIndex = getRowIndex(symbol);
-
-        // Remove the row
-        if (rowIndex != -1) {
-            for (int i = 0; i < 3; i++) {
-                gridPane.getChildren().remove(rowIndex * 3);
-            }
-            gridPane.getRowConstraints().remove(rowIndex);
-        }
     }
 
     private void modifyRow(String symbol, String newSymbol, String newName, double newPrice) {

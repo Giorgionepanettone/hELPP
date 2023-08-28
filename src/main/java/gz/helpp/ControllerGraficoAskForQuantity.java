@@ -13,12 +13,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ControllerGraficoAskForQuantity implements InterfacciaControllerGrafico{
-
-    private String user;
     private String ticker;
     private ModelTransaction.Type type;
+    private String price;
     @FXML
     private Label priceLabel;
+
+    @FXML
+    private Label tickerLabel;
+
+    @FXML
+    private Label cryptoLabelTitle;
 
     private ControllerGraficoPortfolioScreen controllerGraficoPortfolioScreen;
 
@@ -30,6 +35,11 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
     @FXML
     private Button proceedButton;
 
+    public ControllerGraficoAskForQuantity(String ticker, ModelTransaction.Type type, String price) {
+        this.ticker = ticker;
+        this.type = type;
+        this.price = price;
+    }
 
     @Override
     public void initializer(){
@@ -40,6 +50,10 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            priceLabel.setText(price);
+            tickerLabel.setText(ticker);
+            if(this.type.equals(ModelTransaction.Type.DEPOSIT) || this.type.equals(ModelTransaction.Type.WITHDRAW)) this.cryptoLabelTitle.setText("");
 
             proceedButton.setOnAction(e -> {
                 try {
@@ -55,23 +69,17 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
         }
     }
 
-    public void setError(String string){
-        this.errorLabel.setText(string);
+    public void setError(String error){
+        this.errorLabel.setText(error);
     }
-
-    public void setType(ModelTransaction.Type type){this.type = type;}
-
     public void setControllerGraficoPortfolioScreen(ControllerGraficoPortfolioScreen controllerGraficoPortfolioScreen) {
         this.controllerGraficoPortfolioScreen = controllerGraficoPortfolioScreen;
     }
 
-    public void setPriceLabel(String string){
-        this.priceLabel.setText(string);
-    }
     public void terminate(){
-
         ((Stage) priceLabel.getScene().getWindow()).close();
     }
+
     @FXML
     protected void proceedButtonClick() throws SQLException, IOException {
         QuantityBean quantityBean = new QuantityBean();
@@ -105,10 +113,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             controllerApplicativoBuyMenu.bind(controllerGraficoRecap);
 
 
-            if(controllerApplicativoBuyMenu.proceedBuy(quantityBean, beanUser, beanTicker, beanPrice)){
-
-            }
-            else{
+            if(!controllerApplicativoBuyMenu.proceedBuy(quantityBean, beanUser, beanTicker, beanPrice)){
                 errorLabel.setText("insufficient balance");
                 return;
             }
@@ -136,34 +141,17 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
 
             QuantityBean beanQuantity = new QuantityBean();
             beanQuantity.setQuantity(quantityTextField.getText());
-            controllerApplicativoDepositMenu.Deposit(beanQuantity);
+            controllerApplicativoDepositMenu.deposit(beanQuantity);
         }
         else if(this.type.equals(ModelTransaction.Type.WITHDRAW)){
             ControllerApplicativoWithdrawMenu controllerApplicativoWithdrawMenu = new ControllerApplicativoWithdrawMenu();
             QuantityBean beanQuantity = new QuantityBean();
             beanQuantity.setQuantity(quantityTextField.getText());
-           if(controllerApplicativoWithdrawMenu.Withdraw(quantityBean)){
-
-           }
-           else{
+           if(!controllerApplicativoWithdrawMenu.withdraw(quantityBean)){
                this.errorLabel.setText("not enough money");
                return;
            }
-
         }
-
-        //ControllerGraficoMainMenu.balanceLabel.setText(Double.toString(ModelSession.getInstance().getModelUser().getBalance()));
         terminate();
-    }
-
-
-
-
-    public void setUser(String user){
-        this.user = user;
-    }
-
-    public void setTicker(String ticker){
-        this.ticker = ticker;
     }
 }

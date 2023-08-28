@@ -8,6 +8,8 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.bitstamp.BitstampExchange;
 import org.knowm.xchange.bitstamp.service.BitstampMarketDataService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -120,7 +122,7 @@ class ModelUser{
 
     public static int toNumeralString(final Boolean input) {
 
-        return input ? 1 : 0;
+        return Boolean.TRUE.equals(input) ? 1 : 0;
     }
 }
 
@@ -129,10 +131,10 @@ interface BalanceObserver {
 }
 
 class CryptoList{
-    private String[][] cryptoList;
+    private String[][] supportedCryptoList;
 
     public CryptoList(){
-        cryptoList = new String[][]{
+        supportedCryptoList = new String[][]{
                 {"BTC", "Bitcoin"},
                 {"ETH", "Ethereum"},
                 {"LTC", "Litecoin"},
@@ -147,7 +149,7 @@ class CryptoList{
     }
 
     public String[][] getCryptoList(){
-        return this.cryptoList;
+        return this.supportedCryptoList;
     }
 }
 class ModelCrypto{
@@ -202,7 +204,7 @@ class MyThread extends Thread{
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         e.printStackTrace();
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
             }
@@ -212,13 +214,13 @@ class MyThread extends Thread{
             try {
                 cryptoUpdater.notifyObservers();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
             try {
                 Thread.sleep(1000); //change it depending on your needs
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -279,6 +281,8 @@ interface Observer{
 }
 
 class ModelSession {
+    private static final Logger logger = LoggerFactory.getLogger(ModelSession.class);
+
     private static ModelSession instance;
     private ModelUser modelUser;
 
@@ -291,6 +295,9 @@ class ModelSession {
         return instance;
     }
 
+    public static Logger getLogger(){
+        return logger;
+    }
 
     public void setModelUser(ModelUser modelUser){
         this.modelUser = modelUser;
@@ -507,7 +514,7 @@ class UserDao implements DAO<ModelUser>{
 
                     } catch (SQLException e) {
                         e.printStackTrace();
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 });
     }
@@ -603,7 +610,7 @@ class TransactionDAO implements DAO<ModelTransaction>{
         }
         catch(Exception e){
             e.printStackTrace();
-            throw new RuntimeException();
+            e.printStackTrace();
         }
         finally{
             if(preparedStatement != null) preparedStatement.close();
@@ -616,7 +623,7 @@ class TransactionDAO implements DAO<ModelTransaction>{
         return null;
     }
 
-    public ArrayList<ModelTransaction> read() throws SQLException {
+    public List<ModelTransaction> read() throws SQLException {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM transactions WHERE usernameAssociated=" + ModelSession.getInstance().getModelUser().getNickName() + ");");
 
         ArrayList<ModelTransaction> modelTransactionArray = new ArrayList<>();
@@ -637,12 +644,12 @@ class TransactionDAO implements DAO<ModelTransaction>{
 
     @Override
     public void update(ModelTransaction modelTransaction) throws SQLException {
-        throw new RuntimeException();
+        throw new UnsupportedFunctionRuntimeException("update function not supported in transaction model");
     }
 
     @Override
     public void delete(ModelTransaction modelTransaction) throws SQLException {
-        throw new RuntimeException();
+        throw new UnsupportedFunctionRuntimeException("delete function not supported in transaction model");
     }
 }
 
@@ -668,12 +675,12 @@ class TransactionDaoFile implements DAO<ModelTransaction>{
 
     @Override
     public void update(ModelTransaction modelTransaction) throws SQLException {
-        throw new RuntimeException();
+        throw new UnsupportedFunctionRuntimeException("update function not supported in transaction model");
     }
 
     @Override
     public void delete(ModelTransaction modelTransaction) throws SQLException {
-        throw new RuntimeException();
+        throw new UnsupportedFunctionRuntimeException("delete function not supported in transaction model");
     }
 }
 
@@ -696,8 +703,16 @@ class Hash256 {
             }
 
             return hexString.toString();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+}
+
+class UnsupportedFunctionRuntimeException extends RuntimeException{
+    public UnsupportedFunctionRuntimeException(String message){
+        super(message);
     }
 }

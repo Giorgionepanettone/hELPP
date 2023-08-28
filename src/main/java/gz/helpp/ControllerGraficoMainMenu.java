@@ -46,7 +46,6 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
         }
         catch(IOException e){
             e.printStackTrace();
-            throw new RuntimeException();
         }
     }
 
@@ -71,8 +70,8 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
     @FXML
     protected void depositButtonClick(){
         ControllerApplicativoMainMenu controllerApplicativoMainMenu = new ControllerApplicativoMainMenu();
-        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity();
-        controllerGraficoAskForQuantity.setType(ModelTransaction.Type.DEPOSIT);
+        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity("", ModelTransaction.Type.DEPOSIT, "");
+
         controllerApplicativoMainMenu.bind(controllerGraficoAskForQuantity);
         controllerApplicativoMainMenu.portfolioOrProfileOrWithdrawOrDeposit();
     }
@@ -80,8 +79,7 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
     @FXML
     protected void withdrawButtonClick(){
         ControllerApplicativoMainMenu controllerApplicativoMainMenu = new ControllerApplicativoMainMenu();
-        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity();
-        controllerGraficoAskForQuantity.setType(ModelTransaction.Type.WITHDRAW);
+        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity("", ModelTransaction.Type.WITHDRAW, "");
         controllerApplicativoMainMenu.bind(controllerGraficoAskForQuantity);
         controllerApplicativoMainMenu.portfolioOrProfileOrWithdrawOrDeposit();
     }
@@ -91,7 +89,6 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
     protected void buyButtonClick() throws IOException {
         ControllerApplicativoMainMenu controllerApplicativoMainMenu = new ControllerApplicativoMainMenu();
         ControllerGraficoBuyMenu controllerGraficoBuyMenu = new ControllerGraficoBuyMenu();
-        controllerGraficoBuyMenu.setUsername(nickname);
         controllerApplicativoMainMenu.bind(controllerGraficoBuyMenu);
 
         controllerApplicativoMainMenu.buy();
@@ -107,8 +104,4 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
         controllerApplicativoMainMenu.portfolioOrProfileOrWithdrawOrDeposit();
     }
 
-    @FXML
-    protected void searchButtonClick(){
-
-    }
 }

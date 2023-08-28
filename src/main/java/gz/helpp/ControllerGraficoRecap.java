@@ -50,7 +50,6 @@ public class ControllerGraficoRecap implements InterfacciaControllerGrafico{
         }
         catch(IOException e){
             e.printStackTrace();
-            throw new RuntimeException();
         }
     }
 

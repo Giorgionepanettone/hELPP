@@ -35,7 +35,7 @@ public class ControllerGraficoLogInScreen {
     }
 
     @FXML
-    protected void logInButtonClick() throws SQLException, IOException {
+    protected void logInButtonClick() throws SQLException {
         BeanString beanUsername = new BeanString();
         BeanString beanPassword = new BeanString();
 

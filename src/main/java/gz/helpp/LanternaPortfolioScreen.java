@@ -22,13 +22,14 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
 
     private List<Component> components;
 
+    private Screen screen;
+
 
     public void initializer(){
         this.portfolio = ModelSession.getInstance().getModelUser().getPortfolio();
         this.cryptoUpdater = CryptoUpdater.getInstance();
         cryptoUpdater.register(this);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen;
         components = new ArrayList<>();
         try {
             screen = terminalFactory.createScreen();
@@ -120,26 +121,25 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
             catch(Exception e){
                 break;
             }
-            if (symbolComponent instanceof Label) {
-                Label symbolLabel = (Label) symbolComponent;
+            if (symbolComponent instanceof Label symbolLabel) {
+                symbolLabel = (Label) symbolComponent;
                 if (symbolLabel.getText().equals(ticker)) {
                     int priceLabelIndex = i + 1;
-                    if (priceLabelIndex >= 0 && priceLabelIndex < components.size()) {
-                        Component priceComponent = components.get(priceLabelIndex);
-                        Component profitComponent = components.get(priceLabelIndex + 1);
-                        if (priceComponent instanceof Label) {
-                            Label priceLabel = (Label) priceComponent;
-                            Label profitLabel = (Label) profitComponent;
-                            ModelCrypto crypto = displayedCryptoList.get(j);
-                            double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
-                            Pair<Double, Double> pair = portfolio.get(ticker);
-                            Double profit = price * pair.getKey() - pair.getValue();
-                            crypto.setPrice(price);
-                            priceLabel.setText(Double.toString(price));
-                            profitLabel.setText(Double.toString(profit));
-                            j++;
-                        }
+                    Component priceComponent = components.get(priceLabelIndex);
+                    Component profitComponent = components.get(priceLabelIndex + 1);
+                    if (priceComponent instanceof Label priceLabel) {
+                        priceLabel = (Label) priceComponent;
+                        Label profitLabel = (Label) profitComponent;
+                        ModelCrypto crypto = displayedCryptoList.get(j);
+                        double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
+                        Pair<Double, Double> pair = portfolio.get(ticker);
+                        Double profit = price * pair.getKey() - pair.getValue();
+                        crypto.setPrice(price);
+                        priceLabel.setText(Double.toString(price));
+                        profitLabel.setText(Double.toString(profit));
+                        j++;
                     }
+
                 }
             }
         }
@@ -152,21 +152,22 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
         for (int i = 0; i < components.size(); i += 5){
             Component symbolComponent = components.get(i);
 
-            if (symbolComponent instanceof Label) {
-                Label symbolLabel = (Label) symbolComponent;
+            if (symbolComponent instanceof Label symbolLabel) {
+                symbolLabel = (Label) symbolComponent;
                 if(symbolLabel.getText().equals(ticker)){
                     int quantityLabelIndex = i + 3;
-                    if (quantityLabelIndex >= 0 && quantityLabelIndex < components.size()) {
-                        Component quantityComponent = components.get(quantityLabelIndex);
-                        if(quantityComponent instanceof Label){
-                            Label quantityLabel = (Label) quantityComponent;
-                            quantityLabel.setText(Double.toString(Double.parseDouble(quantityLabel.getText()) - quantity));
-                            break;
-                        }
+                    Component quantityComponent = components.get(quantityLabelIndex);
+                    if(quantityComponent instanceof Label quantityLabel){
+                        quantityLabel = (Label) quantityComponent;
+                        quantityLabel.setText(Double.toString(Double.parseDouble(quantityLabel.getText()) - quantity));
+                        break;
                     }
-
                 }
             }
         }
+    }
+
+    public void closeOpenResources() throws IOException {
+        screen.close();
     }
 }

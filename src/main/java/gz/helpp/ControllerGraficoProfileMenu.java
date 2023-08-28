@@ -18,13 +18,13 @@ public class ControllerGraficoProfileMenu implements InterfacciaControllerGrafic
     @FXML
     Label emailLabel;
 
-    private FXMLLoader fxmlLoader;
+
 
     public void initializer(){
 
 
         try{
-            fxmlLoader = new FXMLLoader(getClass().getResource("ProfileMenu.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ProfileMenu.fxml"));
             fxmlLoader.setController(this);
             Parent root = fxmlLoader.load();
 

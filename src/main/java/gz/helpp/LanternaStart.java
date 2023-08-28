@@ -9,17 +9,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class LanternaStart{
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
             new MyWindow().initializer();
         }
 }
 
 class MyWindow extends BasicWindow implements InterfacciaControllerGrafico{
+    private Screen screen;
 
-    public void initializer(){
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen;
+    @Override
+    public void initializer() {
         try {
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             screen = terminalFactory.createScreen();
             screen.startScreen();
             final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
@@ -66,7 +67,7 @@ class MyWindow extends BasicWindow implements InterfacciaControllerGrafico{
                         errorLabel.setText("invalid input");
                     }
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    ModelSession.getLogger().error("sql error in LanternaStart", e);
                 }
 
             });
@@ -91,8 +92,12 @@ class MyWindow extends BasicWindow implements InterfacciaControllerGrafico{
             textGUI.addWindowAndWait(window);
         } catch (Exception e) {
             e.printStackTrace();
-        }    }
+        }
+    }
 
+    public void closeOpenResources() throws IOException {
+        screen.close();
+    }
 }
 
 

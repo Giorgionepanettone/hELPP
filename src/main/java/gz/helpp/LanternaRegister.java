@@ -10,9 +10,10 @@ import java.sql.SQLException;
 
 
 public class LanternaRegister extends BasicWindow implements InterfacciaControllerGrafico{
+    private Screen screen;
+
     public void initializer(){
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen;
         try {
             screen = terminalFactory.createScreen();
             screen.startScreen();
@@ -75,10 +76,8 @@ public class LanternaRegister extends BasicWindow implements InterfacciaControll
                     else{
                         errorLabel.setText("invalid input");
                     }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (SQLException | IOException e) {
+                    e.printStackTrace();
                 }
             });
 
@@ -90,5 +89,9 @@ public class LanternaRegister extends BasicWindow implements InterfacciaControll
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeOpenResources() throws IOException {
+        screen.close();
     }
 }

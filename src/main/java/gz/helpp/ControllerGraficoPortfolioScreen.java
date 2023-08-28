@@ -47,7 +47,6 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
         }
         catch(IOException e){
             e.printStackTrace();
-            throw new RuntimeException();
         }
     }
 
@@ -83,7 +82,7 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
         }
     }
 
-    private void addRow(String symbol, String currentPrice, String profit, String quantityOwned) {
+    private void addRow(String symbol, String price, String profit, String quantityOwned) {
         int rowIndex = gridPane.getRowCount();
 
         String font = "Arial";
@@ -92,7 +91,7 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
         symbolLabel.setFont(new Font(font, 30));
 
 
-        Label currentPriceLabel = new  Label(currentPrice);
+        Label currentPriceLabel = new  Label(price);
         currentPriceLabel.setFont(new Font(font, 30));
 
 
@@ -108,23 +107,18 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
         sellButton.setFont(new Font(font, 30));
         sellButton.setOnAction(event -> {
             String ticker = ControllerGraficoBuyMenu.findSymbolForButton((Button) event.getSource(), 0, gridPane);
-            String price1 = ControllerGraficoBuyMenu.findSymbolForButton((Button) event.getSource(), 1, gridPane);
+            String currentPrice = ControllerGraficoBuyMenu.findSymbolForButton((Button) event.getSource(), 1, gridPane);
 
             FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("AskForQuantity.fxml"));
-            Parent root1 = null;
             try {
-                root1 = fxmlLoader1.load();
+                fxmlLoader1.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity();
+            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransaction.Type.SELL, currentPrice);
             controllerGraficoAskForQuantity.initializer();
 
             controllerGraficoAskForQuantity.setControllerGraficoPortfolioScreen(this);
-            controllerGraficoAskForQuantity.setUser(ModelSession.getInstance().getModelUser().getNickName());
-            controllerGraficoAskForQuantity.setTicker(ticker);
-            controllerGraficoAskForQuantity.setPriceLabel(price1);
-            controllerGraficoAskForQuantity.setType(ModelTransaction.Type.SELL);
         });
 
         gridPane.addRow(rowIndex, symbolLabel, currentPriceLabel, profitLabel, quantityOwnedLabel, sellButton);

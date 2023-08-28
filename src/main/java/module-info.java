@@ -5,9 +5,9 @@ module com.example.helpp {
     requires xchange.core;
     requires xchange.bitstamp;
     requires jsondb.core;
-    requires info.picocli;
     requires com.googlecode.lanterna;
     requires java.desktop;
+    requires org.slf4j;
 
 
     opens gz.helpp to javafx.fxml, info.picocli;

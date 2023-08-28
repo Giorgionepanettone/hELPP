@@ -171,19 +171,9 @@ class ControllerApplicativoPortfolioScreen{
 
 }
 
-class ControllerApplicativoProfileMenu{
-
-    private InterfacciaControllerGrafico interfacciaControllerGrafico;
-
-    public void bind(InterfacciaControllerGrafico interfacciaControllerGrafico) {
-        this.interfacciaControllerGrafico = interfacciaControllerGrafico;
-    }
-
-}
-
 class ControllerApplicativoWithdrawMenu{
 
-    public boolean Withdraw(QuantityBean beanQuantity) throws SQLException {
+    public boolean withdraw(QuantityBean beanQuantity) throws SQLException {
         double quantity = beanQuantity.getQuantity();
         if(quantity == -1) return false;
 
@@ -203,7 +193,7 @@ class ControllerApplicativoWithdrawMenu{
 
 class ControllerApplicativoDepositMenu{
 
-    public void Deposit(QuantityBean beanQuantity) throws SQLException {
+    public void deposit(QuantityBean beanQuantity) throws SQLException {
         double quantity = beanQuantity.getQuantity();
         if(quantity == -1) return;
 

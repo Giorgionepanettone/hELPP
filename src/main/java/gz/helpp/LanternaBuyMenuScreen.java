@@ -12,16 +12,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaControllerGrafico, Observer{
 
-    private Panel contentPanel;
-
     private List<ModelCrypto> displayedCryptoList;
-
-    private BitstampMarketDataService bitstampMarketDataService;
 
     private CryptoUpdater cryptoUpdater;
 
     private List<Component> components;
 
+    private Screen screen;
     public LanternaBuyMenuScreen() throws IOException {
         cryptoUpdater = CryptoUpdater.getInstance();
         cryptoUpdater.register(this);
@@ -30,14 +27,13 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
 
     public void initializer(){
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen;
         try {
             screen = terminalFactory.createScreen();
             screen.startScreen();
             final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
             final BasicWindow window = new BasicWindow("Buy Crypto Menu");
 
-            contentPanel = new Panel();
+            Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new GridLayout(4));
 
             Label headerSymbol = new Label("Symbol");
@@ -111,7 +107,7 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
     }
 
     public void update() throws IOException {
-        bitstampMarketDataService = cryptoUpdater.getState();
+        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
         if(displayedCryptoList == null) return;
 
         int j = 0;
@@ -124,24 +120,26 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
             catch(Exception e){
                 break;
             }
-                if (symbolComponent instanceof Label) {
-                Label symbolLabel = (Label) symbolComponent;
+                if (symbolComponent instanceof Label symbolLabel) {
+                symbolLabel = (Label) symbolComponent;
                 if (symbolLabel.getText().equals(ticker)) {
                     int priceLabelIndex = i + 2;
-                    if (priceLabelIndex >= 0 && priceLabelIndex < components.size()) {
-                        Component priceComponent = components.get(priceLabelIndex);
-                        if (priceComponent instanceof Label) {
-                            Label priceLabel = (Label) priceComponent;
-                            ModelCrypto crypto = displayedCryptoList.get(j);
-                            double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
-                            crypto.setPrice(price);
-                            priceLabel.setText(Double.toString(price));
-                            j++;
-                        }
+                    Component priceComponent = components.get(priceLabelIndex);
+                    if (priceComponent instanceof Label priceLabel) {
+                        priceLabel = (Label) priceComponent;
+                        ModelCrypto crypto = displayedCryptoList.get(j);
+                        double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
+                        crypto.setPrice(price);
+                        priceLabel.setText(Double.toString(price));
+                        j++;
                     }
                 }
             }
         }
 
+    }
+
+    public void closeOpenResources() throws IOException {
+        screen.close();
     }
 }

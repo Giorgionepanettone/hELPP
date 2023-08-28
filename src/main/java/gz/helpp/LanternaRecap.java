@@ -4,6 +4,8 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
+import java.io.IOException;
+
 public class LanternaRecap extends BasicWindow implements InterfacciaControllerGrafico{
     private String cryptoTicker;
 
@@ -12,6 +14,8 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
     private double quantity;
 
     private ModelTransaction.Type type;
+
+    private Screen screen;
 
     public LanternaRecap(String cryptoTicker, double price, double quantity, ModelTransaction.Type type){
              this.cryptoTicker = cryptoTicker;
@@ -22,7 +26,6 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
 
     public void initializer(){
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Screen screen;
         try {
             screen = terminalFactory.createScreen();
             screen.startScreen();
@@ -45,7 +48,11 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
             Label quantityLabel = new Label(Double.toString(quantity));
             contentPanel.addComponent(quantityLabel);
 
-            Label congratulationLabel = new Label("Congratulations! Your purchase was successful\nBRUTTO FALLITO");
+            Label congratulationLabel;
+
+            if(type.equals(ModelTransaction.Type.BUY)) congratulationLabel = new Label("Congratulations! Your purchase was successful");
+            else congratulationLabel = new Label("Congratulations! Your sale was successful");
+
             congratulationLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
             contentPanel.addComponent(congratulationLabel);
 
@@ -55,5 +62,9 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeOpenResources() throws IOException {
+        screen.close();
     }
 }
