@@ -3,23 +3,18 @@ package gz.helpp;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 
 public class LanternaRegister extends BasicWindow implements InterfacciaControllerGrafico{
+
     private Screen screen;
+    private BasicWindow window;
 
     public void initializer(){
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         try {
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            final BasicWindow window = new BasicWindow("Register Screen");
-
             Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
             contentPanel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
@@ -83,15 +78,13 @@ public class LanternaRegister extends BasicWindow implements InterfacciaControll
 
             contentPanel.addComponent(registerButton);
 
-            window.setComponent(contentPanel);
-
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Login screen", contentPanel);
+            WindowBasedTextGUI textGUI = initializationResult.getTextGUI();
+            this.screen = textGUI.getScreen();
+            this.window = initializationResult.getWindow();
             textGUI.addWindowAndWait(window);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void closeOpenResources() throws IOException {
-        screen.close();
     }
 }

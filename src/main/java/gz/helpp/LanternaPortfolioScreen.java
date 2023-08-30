@@ -1,10 +1,7 @@
 package gz.helpp;
 
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import javafx.util.Pair;
-import org.knowm.xchange.bitstamp.service.BitstampMarketDataService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,33 +11,21 @@ import java.util.Map;
 
 public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaControllerGrafico, Observer {
 
-    private List<ModelCrypto> displayedCryptoList;
-
-    private Map<String, Pair<Double, Double>> portfolio;
-
-    private CryptoUpdater cryptoUpdater;
-
     private List<Component> components;
 
-    private Screen screen;
+    private CommonLanternaPricesGraphicControllerHelper commonLanternaPricesGraphicControllerHelper;
 
 
     public void initializer(){
-        this.portfolio = ModelSession.getInstance().getModelUser().getPortfolio();
-        this.cryptoUpdater = CryptoUpdater.getInstance();
+        Map<String, Pair<Double, Double>> portfolio = ModelSession.getInstance().getModelUser().getPortfolio();
+        CryptoUpdater cryptoUpdater = CryptoUpdater.getInstance();
         cryptoUpdater.register(this);
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         components = new ArrayList<>();
         try {
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            final BasicWindow window = new BasicWindow("Portfolio");
-
             Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new GridLayout(5));
 
-            displayedCryptoList = new ArrayList<>();
+            List<ModelCrypto> displayedCryptoList = new ArrayList<>();
             Map<String, Pair<Double, Double>> newModelSessionPortfolio = new HashMap<>();
 
             Label symbol = new Label("symbol");
@@ -61,7 +46,7 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
             components.add(quantityLabell);
             components.add(dummy);
 
-            for (Map.Entry<String, Pair<Double, Double>> entry : this.portfolio.entrySet()) {
+            for (Map.Entry<String, Pair<Double, Double>> entry : portfolio.entrySet()) {
                 double quantity = entry.getValue().getKey();
                 if(quantity == 0.0){
                     continue;
@@ -95,12 +80,12 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
 
                 newModelSessionPortfolio.put(ticker, entry.getValue());
             }
-            this.portfolio = newModelSessionPortfolio;
+            commonLanternaPricesGraphicControllerHelper = new CommonLanternaPricesGraphicControllerHelper(displayedCryptoList, components, portfolio);
+
             ModelSession.getInstance().getModelUser().setPortfolio(newModelSessionPortfolio);
 
-            window.setComponent(contentPanel);
-
-            textGUI.addWindowAndWait(window);
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Portfolio", contentPanel);
+            initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,41 +93,7 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
 
     }
     public void update() throws IOException {
-        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
-        if(displayedCryptoList == null) return;
-
-        int j = 0;
-        for (int i = 0; i < components.size(); i += 5) {
-            Component symbolComponent = components.get(i);
-            String ticker;
-            try {
-                ticker = displayedCryptoList.get(j).getTicker();
-            }
-            catch(Exception e){
-                break;
-            }
-            if (symbolComponent instanceof Label symbolLabel) {
-                symbolLabel = (Label) symbolComponent;
-                if (symbolLabel.getText().equals(ticker)) {
-                    int priceLabelIndex = i + 1;
-                    Component priceComponent = components.get(priceLabelIndex);
-                    Component profitComponent = components.get(priceLabelIndex + 1);
-                    if (priceComponent instanceof Label priceLabel) {
-                        priceLabel = (Label) priceComponent;
-                        Label profitLabel = (Label) profitComponent;
-                        ModelCrypto crypto = displayedCryptoList.get(j);
-                        double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
-                        Pair<Double, Double> pair = portfolio.get(ticker);
-                        Double profit = price * pair.getKey() - pair.getValue();
-                        crypto.setPrice(price);
-                        priceLabel.setText(Double.toString(price));
-                        profitLabel.setText(Double.toString(profit));
-                        j++;
-                    }
-
-                }
-            }
-        }
+        if(commonLanternaPricesGraphicControllerHelper != null) commonLanternaPricesGraphicControllerHelper.updateCommon(5, 1, true);
     }
 
     public void updateRow(BeanString beanTicker, QuantityBean quantityBean){
@@ -165,9 +116,5 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
                 }
             }
         }
-    }
-
-    public void closeOpenResources() throws IOException {
-        screen.close();
     }
 }

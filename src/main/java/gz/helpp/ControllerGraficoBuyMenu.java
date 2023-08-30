@@ -215,4 +215,7 @@ class QuantityBean{
         }
         return number;
     }
+
 }
+
+

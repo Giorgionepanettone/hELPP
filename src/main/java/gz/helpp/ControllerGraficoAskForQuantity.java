@@ -136,22 +136,11 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             controllerGraficoRecap.setCryptoLabel(ticker);
             controllerGraficoRecap.setPriceLabel(priceLabel.getText());
         }
-        else if(this.type.equals(ModelTransaction.Type.DEPOSIT)){
-            ControllerApplicativoDepositMenu controllerApplicativoDepositMenu = new ControllerApplicativoDepositMenu();
+        else if(!new HandleDepositOrWithdrawHelper().depositOrWithDraw(type, quantityBean)){
+            errorLabel.setText("not enough money on balance");
+            return;
+        }
 
-            QuantityBean beanQuantity = new QuantityBean();
-            beanQuantity.setQuantity(quantityTextField.getText());
-            controllerApplicativoDepositMenu.deposit(beanQuantity);
-        }
-        else if(this.type.equals(ModelTransaction.Type.WITHDRAW)){
-            ControllerApplicativoWithdrawMenu controllerApplicativoWithdrawMenu = new ControllerApplicativoWithdrawMenu();
-            QuantityBean beanQuantity = new QuantityBean();
-            beanQuantity.setQuantity(quantityTextField.getText());
-           if(!controllerApplicativoWithdrawMenu.withdraw(quantityBean)){
-               this.errorLabel.setText("not enough money");
-               return;
-           }
-        }
         terminate();
     }
 }

@@ -1,10 +1,6 @@
 package gz.helpp;
 
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-
-import java.io.IOException;
 
 public class LanternaRecap extends BasicWindow implements InterfacciaControllerGrafico{
     private String cryptoTicker;
@@ -15,8 +11,6 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
 
     private ModelTransaction.Type type;
 
-    private Screen screen;
-
     public LanternaRecap(String cryptoTicker, double price, double quantity, ModelTransaction.Type type){
              this.cryptoTicker = cryptoTicker;
              this.price = price;
@@ -25,13 +19,7 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
     }
 
     public void initializer(){
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         try {
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            final BasicWindow window = new BasicWindow("Recap");
-
             Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
 
@@ -39,13 +27,13 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
             title.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
             contentPanel.addComponent(title);
 
-            Label cryptoLabel = new Label(cryptoTicker);
+            Label cryptoLabel = new Label("crypto: " +cryptoTicker);
             contentPanel.addComponent(cryptoLabel);
 
-            Label priceLabel = new Label(Double.toString(price));
+            Label priceLabel = new Label("price: " + price);
             contentPanel.addComponent(priceLabel);
 
-            Label quantityLabel = new Label(Double.toString(quantity));
+            Label quantityLabel = new Label("quantity: " + quantity);
             contentPanel.addComponent(quantityLabel);
 
             Label congratulationLabel;
@@ -56,15 +44,10 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
             congratulationLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
             contentPanel.addComponent(congratulationLabel);
 
-            window.setComponent(contentPanel);
-
-            textGUI.addWindowAndWait(window);
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Recap", contentPanel);
+            initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void closeOpenResources() throws IOException {
-        screen.close();
     }
 }

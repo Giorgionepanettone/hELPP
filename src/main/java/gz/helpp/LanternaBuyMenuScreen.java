@@ -1,9 +1,6 @@
 package gz.helpp;
 
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import org.knowm.xchange.bitstamp.service.BitstampMarketDataService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +13,7 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
 
     private CryptoUpdater cryptoUpdater;
 
-    private List<Component> components;
-
-    private Screen screen;
+    private CommonLanternaPricesGraphicControllerHelper commonLanternaPricesGraphicControllerHelper;
     public LanternaBuyMenuScreen() throws IOException {
         cryptoUpdater = CryptoUpdater.getInstance();
         cryptoUpdater.register(this);
@@ -26,13 +21,7 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
     }
 
     public void initializer(){
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         try {
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            final BasicWindow window = new BasicWindow("Buy Crypto Menu");
-
             Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new GridLayout(4));
 
@@ -41,7 +30,7 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
             Label headerPrice = new Label("Price");
             Label dummyLabel = new Label("");
 
-            components = new ArrayList<>();
+            List<Component> components = new ArrayList<>();
             contentPanel.addComponent(headerSymbol);
             contentPanel.addComponent(headerName);
             contentPanel.addComponent(headerPrice);
@@ -84,12 +73,13 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
                 components.add(buyButton);
             }
 
+            commonLanternaPricesGraphicControllerHelper = new CommonLanternaPricesGraphicControllerHelper(displayedCryptoList, components, null);
             Label errorLabel = new Label("");
             contentPanel.addComponent(errorLabel);
             components.add(errorLabel);
-            window.setComponent(contentPanel);
 
-            textGUI.addWindowAndWait(window);
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("BuyMenu screen", contentPanel);
+            initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,39 +97,6 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
     }
 
     public void update() throws IOException {
-        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
-        if(displayedCryptoList == null) return;
-
-        int j = 0;
-        for (int i = 0; i < components.size(); i += 4) {
-            Component symbolComponent = components.get(i);
-            String ticker;
-            try {
-                ticker = displayedCryptoList.get(j).getTicker();
-            }
-            catch(Exception e){
-                break;
-            }
-                if (symbolComponent instanceof Label symbolLabel) {
-                symbolLabel = (Label) symbolComponent;
-                if (symbolLabel.getText().equals(ticker)) {
-                    int priceLabelIndex = i + 2;
-                    Component priceComponent = components.get(priceLabelIndex);
-                    if (priceComponent instanceof Label priceLabel) {
-                        priceLabel = (Label) priceComponent;
-                        ModelCrypto crypto = displayedCryptoList.get(j);
-                        double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
-                        crypto.setPrice(price);
-                        priceLabel.setText(Double.toString(price));
-                        j++;
-                    }
-                }
-            }
-        }
-
-    }
-
-    public void closeOpenResources() throws IOException {
-        screen.close();
+        if(commonLanternaPricesGraphicControllerHelper != null) commonLanternaPricesGraphicControllerHelper.updateCommon(4, 2, false);
     }
 }

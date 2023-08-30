@@ -2,10 +2,7 @@ package gz.helpp;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class LanternaStart{
@@ -15,22 +12,12 @@ public class LanternaStart{
 }
 
 class MyWindow extends BasicWindow implements InterfacciaControllerGrafico{
-    private Screen screen;
 
     @Override
     public void initializer() {
         try {
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            final BasicWindow window = new BasicWindow("Login page");
-
             Panel contentPanel = new Panel();
-            contentPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
-            contentPanel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
             contentPanel.setPreferredSize(new TerminalSize(150, 15));
-
             contentPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
 
             TextBox usernameTextBox = new TextBox();
@@ -69,7 +56,6 @@ class MyWindow extends BasicWindow implements InterfacciaControllerGrafico{
                 } catch (SQLException e) {
                     ModelSession.getLogger().error("sql error in LanternaStart", e);
                 }
-
             });
 
             Button registerButton = new Button("Register", () -> {
@@ -87,17 +73,13 @@ class MyWindow extends BasicWindow implements InterfacciaControllerGrafico{
             contentPanel.addComponent(new Label(""));
             contentPanel.addComponent(errorLabel);
 
-            window.setComponent(contentPanel);
-
-            textGUI.addWindowAndWait(window);
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Login screen", contentPanel);
+            initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaStart initializer error", e);
         }
     }
 
-    public void closeOpenResources() throws IOException {
-        screen.close();
-    }
 }
 
 

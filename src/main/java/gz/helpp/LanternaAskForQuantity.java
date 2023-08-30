@@ -3,7 +3,6 @@ package gz.helpp;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,17 +32,13 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
     }
 
     public void initializer(){
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         try {
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            window = new BasicWindow("Ask for Quantity");
-
             Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new GridLayout(2));
 
-            Label priceLabel = new Label(Double.toString(price));
+            Label priceLabel = new Label("");
+            if(type.equals(ModelTransaction.Type.BUY) || type.equals(ModelTransaction.Type.SELL)) priceLabel.setText(Double.toString(price));
+
             contentPanel.addComponent(priceLabel);
 
             quantityTextField = new TextBox().setPreferredSize(new TerminalSize(20, 1));
@@ -61,11 +56,14 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
             errorLabel = new Label("");
             contentPanel.addComponent(errorLabel);
 
-            window.setComponent(contentPanel);
-
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Insert quantity", contentPanel);
+            WindowBasedTextGUI textGUI = initializationResult.getTextGUI();
+            this.screen = textGUI.getScreen();
+            this.window = initializationResult.getWindow();
             textGUI.addWindowAndWait(window);
+
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -115,31 +113,16 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
                 return;
             }
         }
-        else if(this.type.equals(ModelTransaction.Type.DEPOSIT)){
-            ControllerApplicativoDepositMenu controllerApplicativoDepositMenu = new ControllerApplicativoDepositMenu();
-
-            QuantityBean beanQuantity = new QuantityBean();
-            beanQuantity.setQuantity(quantityTextField.getText());
-            controllerApplicativoDepositMenu.deposit(beanQuantity);
-        }
-        else if(this.type.equals(ModelTransaction.Type.WITHDRAW)){
-            ControllerApplicativoWithdrawMenu controllerApplicativoWithdrawMenu = new ControllerApplicativoWithdrawMenu();
-            QuantityBean beanQuantity = new QuantityBean();
-            beanQuantity.setQuantity(quantityTextField.getText());
-            if(!controllerApplicativoWithdrawMenu.withdraw(quantityBean)){
-                this.errorLabel.setText("not enough money");
+        else if(!new HandleDepositOrWithdrawHelper().depositOrWithDraw(type, quantityBean)){
+                errorLabel.setText("not enough money on balance");
                 return;
-            }
         }
+
         window.close();
         screen.close();
     }
 
     public void bindLanternaPortfolioScreen(LanternaPortfolioScreen lanternaPortfolioScreen){
         this.lanternaPortfolioScreen = lanternaPortfolioScreen;
-    }
-
-    public void closeOpenResources() throws IOException {
-        screen.close();
     }
 }

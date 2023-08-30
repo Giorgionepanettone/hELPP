@@ -178,6 +178,7 @@ class ModelCrypto{
     }
 
     public void setPrice(double price){
+
         this.price = price;
     }
 }
@@ -217,7 +218,7 @@ class MyThread extends Thread{
                 e.printStackTrace();
             }
             try {
-                Thread.sleep(1000); //change it depending on your needs
+                Thread.sleep(1000); //change this depending on your needs
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 e.printStackTrace();
@@ -325,58 +326,72 @@ class ModelTransaction{
     private Date date;
 
     public int getTransactionId() {
+
         return this.transactionId;
     }
 
     public String getUsernameAssociated(){
+
         return this.usernameAssociated;
     }
 
     public String getCryptoTicker(){
+
         return this.cryptoTicker;
     }
 
     public double getQuantity() {
+
         return this.quantity;
     }
 
     public Date getDate() {
+
         return this.date;
     }
 
     public double getPrice() {
-        return price;
+
+        return this.price;
     }
 
     public Type getType() {
-        return type;
+
+        return this.type;
     }
 
     public void setCryptoTicker(String cryptoTicker) {
+
         this.cryptoTicker = cryptoTicker;
     }
 
     public void setDate(Date date) {
+
         this.date = date;
     }
 
     public void setPrice(double price) {
+
         this.price = price;
     }
 
     public void setQuantity(double quantity) {
+
         this.quantity = quantity;
     }
 
     public void setType(Type type) {
+
         this.type = type;
     }
 
     public void setUsernameAssociated(String usernameAssociated) {
+
         this.usernameAssociated = usernameAssociated;
     }
 
     public void setTransactionId(int transactionId){
+
         this.transactionId = transactionId;
     }
 }
@@ -713,6 +728,12 @@ class Hash256 {
 
 class UnsupportedFunctionRuntimeException extends RuntimeException{
     public UnsupportedFunctionRuntimeException(String message){
+        super(message);
+    }
+}
+
+class LanternaScreenCreationException extends RuntimeException{
+    public LanternaScreenCreationException(String message){
         super(message);
     }
 }

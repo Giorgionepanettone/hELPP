@@ -2,26 +2,14 @@ package gz.helpp;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 import java.io.IOException;
 
 public class LanternaMainMenu extends BasicWindow implements InterfacciaControllerGrafico, BalanceObserver{
     private Label balanceLabel;
 
-    private Screen screen;
-
     public void initializer(){
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         try {
-            screen = terminalFactory.createScreen();
-            screen.startScreen();
-            final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-            final BasicWindow window = new BasicWindow("Main Menu");
-
-
-
             Panel contentPanel = new Panel();
             contentPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
             contentPanel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
@@ -53,17 +41,15 @@ public class LanternaMainMenu extends BasicWindow implements InterfacciaControll
 
             ModelSession.getInstance().getModelUser().addObserver(this);
 
-            window.setComponent(contentPanel);
-            textGUI.addWindowAndWait(window);
+            InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Login screen", contentPanel);
+            initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void balanceChanged(double newBalance){
+
         this.balanceLabel.setText("balance : €" + newBalance);
     }
 
-    public void closeOpenResources() throws IOException {
-        screen.close();
-    }
 }
