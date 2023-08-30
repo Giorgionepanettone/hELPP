@@ -52,7 +52,7 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
             initializeCrypto();
         }
         catch(IOException e){
-            e.printStackTrace();
+            ModelSession.getLogger().error("ControllerGraficoBuyMenu initializer method error", e);
         }
     }
 

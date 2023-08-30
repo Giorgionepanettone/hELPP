@@ -81,7 +81,7 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("BuyMenu screen", contentPanel);
             initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaBuyMenuScreen initializer error", e);
         }
     }
 

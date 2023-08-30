@@ -23,23 +23,23 @@ import java.util.Map;
 class ModelUser{
     private int userId;
     private String password;
-    private String nickName;
+    private String userName;
     private boolean isFinancialAdvisor;
     private double balance;
     private Map<String, Pair<Double, Double>> portfolio;
     private String email;
     private List<BalanceObserver> observers = new ArrayList<>();
 
-    public ModelUser( String nickName, boolean isFinancialAdvisor, Map<String, Pair<Double, Double>> portfolio, double balance){
-        this.nickName = nickName;
+    public ModelUser( String userName, boolean isFinancialAdvisor, Map<String, Pair<Double, Double>> portfolio, double balance){
+        this.userName = userName;
         this.isFinancialAdvisor = isFinancialAdvisor;
         this.portfolio = portfolio;
         this.balance = balance;
     }
 
-    public void setNickName(String nickName) {
+    public void setUserName(String userName) {
 
-        this.nickName = nickName;
+        this.userName = userName;
     }
 
     public void setIsFinancialAdvisor(boolean isFinancialAdvisor){
@@ -96,9 +96,9 @@ class ModelUser{
 
         return this.email;
     }
-    public String getNickName(){
+    public String getUserName(){
 
-        return this.nickName;
+        return this.userName;
     }
 
     public String getPassword(){
@@ -204,8 +204,7 @@ class MyThread extends Thread{
                         cryptoUpdater.lock.wait();
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
-                        e.printStackTrace();
-                        e.printStackTrace();
+                        ModelSession.getLogger().error("Model file, crypto retrieving data thread MyThread run method error", e);
                     }
                 }
             }
@@ -215,13 +214,13 @@ class MyThread extends Thread{
             try {
                 cryptoUpdater.notifyObservers();
             } catch (IOException e) {
-                e.printStackTrace();
+                ModelSession.getLogger().error("Model file, crypto retrieving data thread MyThread notifyObservers() error", e);
             }
             try {
                 Thread.sleep(1000); //change this depending on your needs
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                e.printStackTrace();
+                ModelSession.getLogger().error("Model file, crypto retrieving data thread MyThread Thread.sleep() error", e);
             }
         }
     }
@@ -417,7 +416,7 @@ class UserDao implements DAO<ModelUser>{
 
         try{
             preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1, modelUser.getNickName());
+            preparedStmt.setString(1, modelUser.getUserName());
             preparedStmt.setString(2, Hash256.hash256(modelUser.getPassword()));
             preparedStmt.setInt(3, ModelUser.toNumeralString(modelUser.getIsFinancialAdvisor()));
             preparedStmt.setString(4, modelUser.getEmail());
@@ -502,11 +501,11 @@ class UserDao implements DAO<ModelUser>{
         try {
             preparedStatement = connection.prepareStatement(updateSql);
             preparedStatement.setDouble(1, modelUser.getBalance());
-            preparedStatement.setString(2, modelUser.getNickName());
+            preparedStatement.setString(2, modelUser.getUserName());
             preparedStatement.executeUpdate();
         }
         catch(Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("Model file, update method sql error", e);
         }
         finally{
             if(preparedStatement != null){
@@ -514,7 +513,7 @@ class UserDao implements DAO<ModelUser>{
             }
         }
 
-        String username = modelUser.getNickName();
+        String username = modelUser.getUserName();
         modelUser.getPortfolio().forEach(
                 (key, value)
                         -> {
@@ -528,8 +527,7 @@ class UserDao implements DAO<ModelUser>{
                         preparedStatement1.executeUpdate();
 
                     } catch (SQLException e) {
-                        e.printStackTrace();
-                        e.printStackTrace();
+                        ModelSession.getLogger().error("Model file, update method error", e);
                     }
                 });
     }
@@ -624,8 +622,7 @@ class TransactionDAO implements DAO<ModelTransaction>{
             preparedStatement.executeUpdate();
         }
         catch(Exception e){
-            e.printStackTrace();
-            e.printStackTrace();
+            ModelSession.getLogger().error("Model file, create method sql error", e);
         }
         finally{
             if(preparedStatement != null) preparedStatement.close();
@@ -639,7 +636,16 @@ class TransactionDAO implements DAO<ModelTransaction>{
     }
 
     public List<ModelTransaction> read() throws SQLException {
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM transactions WHERE usernameAssociated=" + ModelSession.getInstance().getModelUser().getNickName() + ");");
+        String query = "SELECT * FROM transactions WHERE usernameAssociated = ?";
+        ResultSet resultSet = null;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, ModelSession.getInstance().getModelUser().getUserName());
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            ModelSession.getLogger().error("sql error in read method in Model file", e);
+        }
 
         ArrayList<ModelTransaction> modelTransactionArray = new ArrayList<>();
 
@@ -720,7 +726,7 @@ class Hash256 {
             return hexString.toString();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("Model file, hash256 function error", e);
         }
         return "";
     }

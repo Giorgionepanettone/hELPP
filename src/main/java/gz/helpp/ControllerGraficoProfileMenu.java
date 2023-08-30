@@ -33,7 +33,7 @@ public class ControllerGraficoProfileMenu implements InterfacciaControllerGrafic
 
             ModelSession modelSession = ModelSession.getInstance();
 
-            usernameLabel.setText( modelSession.getModelUser().getNickName());
+            usernameLabel.setText( modelSession.getModelUser().getUserName());
             balanceLabel.setText("€" + Double.toString(modelSession.getModelUser().getBalance()));
             emailLabel.setText(modelSession.getModelUser().getEmail());
 
@@ -41,7 +41,7 @@ public class ControllerGraficoProfileMenu implements InterfacciaControllerGrafic
 
         }
         catch(IOException e){
-            e.printStackTrace();
+            ModelSession.getLogger().error("ControllerGraficoProfileMenu initializer method error", e);
         }
     }
 

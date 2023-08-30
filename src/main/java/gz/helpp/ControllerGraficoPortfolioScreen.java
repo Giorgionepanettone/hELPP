@@ -113,7 +113,7 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
             try {
                 fxmlLoader1.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                ModelSession.getLogger().error("ControllerGraficoPortfolioScreen addRow method error", e);
             }
             ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransaction.Type.SELL, currentPrice);
             controllerGraficoAskForQuantity.initializer();

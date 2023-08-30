@@ -9,7 +9,7 @@ public class LanternaProfileScreen extends BasicWindow implements InterfacciaCon
             contentPanel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
             contentPanel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));
 
-            Label usernameLabel = new Label("Username: " + ModelSession.getInstance().getModelUser().getNickName());
+            Label usernameLabel = new Label("Username: " + ModelSession.getInstance().getModelUser().getUserName());
             contentPanel.addComponent(usernameLabel);
 
             Label balanceLabel = new Label("Balance: " + ModelSession.getInstance().getModelUser().getBalance());
@@ -21,7 +21,7 @@ public class LanternaProfileScreen extends BasicWindow implements InterfacciaCon
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Profile", contentPanel);
             initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaProfileScreen initializer method error", e);
         }
     }
 }

@@ -41,7 +41,7 @@
 }
 
 /* Styling for all buttons */
-.button:pressed, .button:hover {
+.button:hover {
     -fx-background-color: #004c80;
 }
 

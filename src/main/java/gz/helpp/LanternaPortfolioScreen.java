@@ -53,8 +53,8 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
                 }
                 String ticker = entry.getKey();
                 Label symbolLabel = new Label(ticker);
-                Label priceLabel = new Label("weakling");
-                Label profitLabel = new Label("working on it");
+                Label priceLabel = new Label("retrieving data");
+                Label profitLabel = new Label("");
                 Label quantityLabel = new Label(Double.toString(quantity));
 
                 ModelCrypto crypto = new ModelCrypto(ticker, "don't care");
@@ -87,7 +87,7 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Portfolio", contentPanel);
             initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaPortflioScreen initializer method error", e);
         }
 
 

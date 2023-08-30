@@ -47,7 +47,7 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Recap", contentPanel);
             initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaRecap initializer method error", e);
         }
     }
 }

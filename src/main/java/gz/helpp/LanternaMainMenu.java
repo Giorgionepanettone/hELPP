@@ -21,7 +21,7 @@ public class LanternaMainMenu extends BasicWindow implements InterfacciaControll
                 try {
                     new LanternaBuyMenuScreen().initializer();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    ModelSession.getLogger().error("LanternaMainMenu initializer method button initialization error", e);
                 }
             });
             contentPanel.addComponent(buyCryptoButton);
@@ -44,7 +44,7 @@ public class LanternaMainMenu extends BasicWindow implements InterfacciaControll
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Login screen", contentPanel);
             initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaMainMenu initializer method error", e);
         }
     }
     public void balanceChanged(double newBalance){

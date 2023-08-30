@@ -59,13 +59,13 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
                 try {
                     proceedButtonClick();
                 } catch (SQLException | IOException ex) {
-                    ex.printStackTrace();
+                    ModelSession.getLogger().error("ControllerGraficoAskForQuantity button initialize error, in initializer method", ex);
                 }
             });
             stage.show();
         }
         catch(IOException e){
-            e.printStackTrace();
+            ModelSession.getLogger().error("ControllerGraficoAskForQuantity initializer error", e);
         }
     }
 
@@ -93,7 +93,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
         ModelSession modelSession = ModelSession.getInstance();
 
         BeanString beanUser = new BeanString();
-        beanUser.setString(modelSession.getModelUser().getNickName());
+        beanUser.setString(modelSession.getModelUser().getUserName());
 
         BeanString beanTicker = new BeanString();
         beanTicker.setString(ticker);

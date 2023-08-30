@@ -84,7 +84,7 @@ public class LanternaRegister extends BasicWindow implements InterfacciaControll
             this.window = initializationResult.getWindow();
             textGUI.addWindowAndWait(window);
         } catch (Exception e) {
-            e.printStackTrace();
+            ModelSession.getLogger().error("LanternaRegister initializer method error", e);
         }
     }
 }

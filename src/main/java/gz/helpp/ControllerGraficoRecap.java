@@ -49,7 +49,7 @@ public class ControllerGraficoRecap implements InterfacciaControllerGrafico{
             stage.show();
         }
         catch(IOException e){
-            e.printStackTrace();
+            ModelSession.getLogger().error("ControllergraficoRecap initializer method error", e);
         }
     }
 

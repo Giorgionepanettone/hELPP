@@ -28,7 +28,7 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 
         ModelSession modelSession = ModelSession.getInstance();
-        this.nickname = modelSession.getModelUser().getNickName();
+        this.nickname = modelSession.getModelUser().getUserName();
 
 
 
@@ -45,7 +45,7 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
             stage.show();
         }
         catch(IOException e){
-            e.printStackTrace();
+            ModelSession.getLogger().error("ControllerGraficoMainMenu initializer method error", e);
         }
     }
 

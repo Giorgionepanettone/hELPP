@@ -63,7 +63,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
             textGUI.addWindowAndWait(window);
 
         } catch (Exception e) {
-
+            ModelSession.getLogger().error("LanternaAskForQuantity initializer error", e);
         }
     }
 
@@ -80,7 +80,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
         ModelSession modelSession = ModelSession.getInstance();
 
         BeanString beanUser = new BeanString();
-        beanUser.setString(modelSession.getModelUser().getNickName());
+        beanUser.setString(modelSession.getModelUser().getUserName());
 
         BeanString beanTicker = new BeanString();
         beanTicker.setString(ticker);
