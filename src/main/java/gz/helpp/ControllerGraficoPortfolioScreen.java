@@ -46,7 +46,7 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
             stage.show();
         }
         catch(IOException e){
-            e.printStackTrace();
+            ModelSession.getLogger().error("ControllerGraficoPortfolioScreen file, initializer method error", e);
         }
     }
 
