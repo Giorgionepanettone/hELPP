@@ -1,0 +1,382 @@
+{
+  "id": "533aca1d-05f7-4433-b75b-45ccf9be742b",
+  "version": "2.0",
+  "name": "seleniumIdeTest",
+  "url": "https://weather.com",
+  "tests": [{
+    "id": "e2f26c79-5339-49a7-bb3f-80007819bb7b",
+    "name": "Untitled",
+    "commands": []
+  }, {
+    "id": "e291c9f6-19e6-493d-af91-ea7f873b6b22",
+    "name": "checkWeather",
+    "commands": [{
+      "id": "3f4114ff-4a2a-4909-86dd-ee0dd7a6e5e7",
+      "comment": "",
+      "command": "open",
+      "target": "/it-IT/tempo/oggi/l/ITXX0067:1:IT?Goto=Redirected",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e37c326a-b3bd-466d-9904-327130b15a3d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1097x848",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "29bd9341-3c70-48b6-b3c9-71120fd5acb0",
+      "comment": "",
+      "command": "click",
+      "target": "id=LocationSearch_input",
+      "targets": [
+        ["id=LocationSearch_input", "id"],
+        ["css=#LocationSearch_input", "css:finder"],
+        ["xpath=//input[@id='LocationSearch_input']", "xpath:attributes"],
+        ["xpath=//div[@id='WxuHeaderLargeScreen-header-9944ec87-e4d4-4f18-b23e-ce4a3fd8a3ba']/header/div/div[2]/div/form/div/div/fieldset/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97ba8b98-df36-42fb-9400-c311a5f41f8f",
+      "comment": "",
+      "command": "type",
+      "target": "id=LocationSearch_input",
+      "targets": [
+        ["id=LocationSearch_input", "id"],
+        ["css=#LocationSearch_input", "css:finder"],
+        ["xpath=//input[@id='LocationSearch_input']", "xpath:attributes"],
+        ["xpath=//div[@id='WxuHeaderLargeScreen-header-9944ec87-e4d4-4f18-b23e-ce4a3fd8a3ba']/header/div/div[2]/div/form/div/div/fieldset/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "00133"
+    }, {
+      "id": "f9ccdcc7-c7b3-4fa1-825b-93458f7a0fc8",
+      "comment": "",
+      "command": "click",
+      "target": "id=LocationSearch_listbox-9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa",
+      "targets": [
+        ["id=LocationSearch_listbox-9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa", "id"],
+        ["css=#LocationSearch_listbox-9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa", "css:finder"],
+        ["xpath=//button[@id='LocationSearch_listbox-9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa']", "xpath:attributes"],
+        ["xpath=//div[@id='LocationSearch_listbox']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Torre Angela, città metropolitana di Roma Capitale')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5e901ce5-ecdc-4196-9b79-ead9e9a9b023",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,21)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5465ee98-513b-4dca-9e37-39cae84bae08",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,322)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b9dd215c-6d82-4085-b803-075c5556f0b4",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "linkText=Prossime ore",
+      "targets": [
+        ["linkText=Prossime ore", "linkText"],
+        ["css=#WxuTodayWeatherCard-main-486ce56c-74e0-4152-bd76-7aea8e98520a .Button--primary--1eZwN", "css:finder"],
+        ["xpath=//a[contains(text(),'Prossime ore')]", "xpath:link"],
+        ["xpath=//div[@id='WxuTodayWeatherCard-main-486ce56c-74e0-4152-bd76-7aea8e98520a']/section/footer/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/it-IT/tempo/orario/l/9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa')])[6]", "xpath:href"],
+        ["xpath=//footer/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Prossime ore')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eb34d636-18a5-49e8-8955-84168fa83314",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Prossime ore",
+      "targets": [
+        ["linkText=Prossime ore", "linkText"],
+        ["css=#WxuTodayWeatherCard-main-486ce56c-74e0-4152-bd76-7aea8e98520a .Button--primary--1eZwN", "css:finder"],
+        ["xpath=//a[contains(text(),'Prossime ore')]", "xpath:link"],
+        ["xpath=//div[@id='WxuTodayWeatherCard-main-486ce56c-74e0-4152-bd76-7aea8e98520a']/section/footer/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/it-IT/tempo/orario/l/9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa')])[6]", "xpath:href"],
+        ["xpath=//footer/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Prossime ore')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "affe9450-b430-4003-aec7-ea15118574c9",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "linkText=Prossime ore",
+      "targets": [
+        ["linkText=Prossime ore", "linkText"],
+        ["css=#WxuTodayWeatherCard-main-486ce56c-74e0-4152-bd76-7aea8e98520a .Button--primary--1eZwN", "css:finder"],
+        ["xpath=//a[contains(text(),'Prossime ore')]", "xpath:link"],
+        ["xpath=//div[@id='WxuTodayWeatherCard-main-486ce56c-74e0-4152-bd76-7aea8e98520a']/section/footer/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/it-IT/tempo/orario/l/9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa')])[6]", "xpath:href"],
+        ["xpath=//footer/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Prossime ore')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffa7c38b-2784-46dc-8dd3-e0654fad3fd5",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,208)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6897ddd9-ffac-4423-8bd4-411c23b2cd5f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#detailIndex1 .DetailsSummary--wind--1tv7t",
+      "targets": [
+        ["css=#detailIndex1 .DetailsSummary--wind--1tv7t", "css:finder"],
+        ["xpath=//details[@id='detailIndex1']/summary/div/div/div[4]", "xpath:idRelative"],
+        ["xpath=//details[2]/summary/div/div/div[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fa7ca33a-aa43-4feb-8dcc-3a9f264bbed1",
+      "comment": "",
+      "command": "click",
+      "target": "css=#detailIndex2 .DaypartDetails--DetailSummaryContent--1-r0i > .Icon--icon--2aW0V",
+      "targets": [
+        ["css=#detailIndex2 .DaypartDetails--DetailSummaryContent--1-r0i > .Icon--icon--2aW0V", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "fdffc397-dad8-41ce-9f26-de1e0f673341",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,756)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f7ece2ca-b589-4e66-afd6-c8f9c3432c5d",
+      "comment": "",
+      "command": "click",
+      "target": "css=#detailIndex4 .DetailsSummary--DetailsSummary--1DqhO",
+      "targets": [
+        ["css=#detailIndex4 .DetailsSummary--DetailsSummary--1DqhO", "css:finder"],
+        ["xpath=//details[@id='detailIndex4']/summary/div/div", "xpath:idRelative"],
+        ["xpath=//details[5]/summary/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "09cdf25d-90d4-4fd0-93c0-82dfaac0cb99",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,3861)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7c054826-6007-442d-9211-0920777c5837",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Previsioni meteo per 10 giorni",
+      "targets": [
+        ["linkText=Previsioni meteo per 10 giorni", "linkText"],
+        ["css=.Button--primary--1eZwN", "css:finder"],
+        ["xpath=//a[contains(text(),'Previsioni meteo per 10 giorni')]", "xpath:link"],
+        ["xpath=//div[@id='WxuHourlyCard-main-74f43669-10ed-4577-a8c4-85ad9d041036']/section/div[2]/div[2]/div[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/it-IT/tempo/10giorni/l/9ffa6f9f376a765e344634b922b7f70d5216ac0dea5b5797f9e0a4c5fe584baa')])[2]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Previsioni meteo per 10 giorni')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a8b941dd-07a7-477f-8ccf-880db56a37ca",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,6)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59aba3a3-ed3b-4a0f-a2c5-1e3156467977",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,769)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "89506f74-d7ee-4e2f-b6a7-d6cda775d1f2",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,169)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9ae320f1-87da-437a-8e5b-bfa5e02b5493",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ListItem--listItem--25ojW:nth-child(4) > .styles--liContent--3lr9O",
+      "targets": [
+        ["css=.ListItem--listItem--25ojW:nth-child(4) > .styles--liContent--3lr9O", "css:finder"],
+        ["xpath=//div[@id='WxuLocalsuiteNav-header-71dadf79-621d-43ff-9a1a-d99a39f16abe']/div/nav/div/div/a[4]/span", "xpath:idRelative"],
+        ["xpath=//a[4]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Mensile')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d4f59e43-061d-4197-9252-a9b68f857914",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,97)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cf341f7f-be98-4207-86f3-414e5b4705b5",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,816)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "db110dac-d7e9-460a-9252-d60578d57e4b",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,607)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8c4d7d0e-57b7-433e-a4e4-8f217eed62ff",
+      "comment": "",
+      "command": "click",
+      "target": "css=.CalendarDateCell--dayCell--3ED7m:nth-child(40)",
+      "targets": [
+        ["css=.CalendarDateCell--dayCell--3ED7m:nth-child(40)", "css:finder"],
+        ["xpath=(//button[@type='button'])[45]", "xpath:attributes"],
+        ["xpath=//div[@id='WxuCalendar-main-69bb61a5-2a5f-4a3e-879c-53f37030c238']/section/div[2]/div[3]/button[39]", "xpath:idRelative"],
+        ["xpath=//button[39]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f9962982-245d-4d6f-b81a-cd41e2f634e0",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,1072.5999755859375)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5e55f0c8-5298-4612-aa72-7b9d398ffc46",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ListItem--listItem--25ojW:nth-child(5) > .styles--liContent--3lr9O",
+      "targets": [
+        ["css=.ListItem--listItem--25ojW:nth-child(5) > .styles--liContent--3lr9O", "css:finder"],
+        ["xpath=//div[@id='WxuLocalsuiteNav-header-71dadf79-621d-43ff-9a1a-d99a39f16abe']/div/nav/div/div/a[5]/span", "xpath:idRelative"],
+        ["xpath=//a[5]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Weekend')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc271af1-157e-4afd-8055-a5a7d505f2c6",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,168)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "64b20abf-2257-44d2-a5f7-360da833b17b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.WeekendForecast--DisclosureList--ZUwFz:nth-child(2) > .DaypartDetails--DayPartDetail--2XOOV:nth-child(4) .DetailsSummary--wind--1tv7t",
+      "targets": [
+        ["css=.WeekendForecast--DisclosureList--ZUwFz:nth-child(2) > .DaypartDetails--DayPartDetail--2XOOV:nth-child(4) .DetailsSummary--wind--1tv7t", "css:finder"],
+        ["xpath=//div[@id='WxuWeekendCard-main-393aaed8-18b4-4961-8b85-0cd9ea2e4dbd']/section/div[2]/div[2]/details[3]/summary/div/div/div[4]", "xpath:idRelative"],
+        ["xpath=//details[3]/summary/div/div/div[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d273b65-50f6-49a5-907e-9be7c4960453",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,498)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f34b46dd-0d42-43d6-947a-aa15993de567",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.ListItem--listItem--25ojW:nth-child(2) > .styles--liContent--3lr9O",
+      "targets": [
+        ["css=.ListItem--listItem--25ojW:nth-child(2) > .styles--liContent--3lr9O", "css:finder"],
+        ["xpath=//div[@id='WxuLocalsuiteNav-header-71dadf79-621d-43ff-9a1a-d99a39f16abe']/div/nav/div/div/a[2]/span", "xpath:idRelative"],
+        ["xpath=//nav/div/div/a[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Orario')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a0509538-52c4-4ecc-b4c2-9673460a62d5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ListItem--listItem--25ojW:nth-child(2) > .styles--liContent--3lr9O",
+      "targets": [
+        ["css=.ListItem--listItem--25ojW:nth-child(2) > .styles--liContent--3lr9O", "css:finder"],
+        ["xpath=//div[@id='WxuLocalsuiteNav-header-71dadf79-621d-43ff-9a1a-d99a39f16abe']/div/nav/div/div/a[2]/span", "xpath:idRelative"],
+        ["xpath=//nav/div/div/a[2]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Orario')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "91cf8c15-19e5-4a61-861d-cfc98c8c604a",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,365)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5eea7a84-2375-49ec-8bb7-904ddab527d3",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,1072.199951171875)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b204d5a-5415-45e7-9fdd-1527e175cdcb",
+      "comment": "",
+      "command": "click",
+      "target": "css=#detailIndex20 .DaypartDetails--DetailSummaryContent--1-r0i",
+      "targets": [
+        ["css=#detailIndex20 .DaypartDetails--DetailSummaryContent--1-r0i", "css:finder"],
+        ["xpath=//details[@id='detailIndex20']/summary/div", "xpath:idRelative"],
+        ["xpath=//details[21]/summary/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c757b1e9-554d-4eaa-9e32-4845497e63cf",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,1769.199951171875)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31180e5d-6e25-4025-a6b8-6c59d24780f1",
+      "comment": "",
+      "command": "click",
+      "target": "css=#detailIndex35 .DaypartDetails--DetailSummaryContent--1-r0i",
+      "targets": [
+        ["css=#detailIndex35 .DaypartDetails--DetailSummaryContent--1-r0i", "css:finder"],
+        ["xpath=//details[@id='detailIndex35']/summary/div", "xpath:idRelative"],
+        ["xpath=//details[36]/summary/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "d210743f-538d-40ec-9315-effae315eb96",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["e2f26c79-5339-49a7-bb3f-80007819bb7b"]
+  }],
+  "urls": ["https://weather.com/"],
+  "plugins": []
+}
