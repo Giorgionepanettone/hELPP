@@ -42,7 +42,7 @@ public class ControllerGraficoLogInScreen implements InterfacciaControllerGrafic
         }
     }
     @FXML
-    protected void registerButtonClick() throws IOException {
+    protected void registerButtonClick(){
         new ControllerGraficoRegisterScreen().initializer();
     }
 

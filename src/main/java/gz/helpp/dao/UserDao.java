@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class UserDao implements DAO<ModelUser>{
     private final Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/e-market", "root", System.getenv("DBPWD"));
 
-    public UserDao() throws SQLException {
+    public UserDao() throws SQLException {//empty cause of private field assignment connection on instance creation
     }
 
     @Override
