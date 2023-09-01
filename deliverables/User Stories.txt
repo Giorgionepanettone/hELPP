@@ -1,0 +1,3 @@
+1) As a crypto investor, I want to browse a variety of cryptocurrencies and their current market prices, so that I can make investments based on real-time data
+2) As a crypto holder, I want to monitor the cryptocurrencies that I own, so that I can keep a close watch on my investments
+3) As a financial advisor, I want to have followers who view and copy my investments, so that I can grow in popularity and reputation
