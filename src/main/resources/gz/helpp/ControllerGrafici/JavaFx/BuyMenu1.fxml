@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx/8.0.171"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="gz.helpp.ControllerGraficoBuyMenu"
+          alignment="center"
+          hgap="10"
+          vgap="10">
+
+    <columnConstraints>
+        <ColumnConstraints minWidth="200" />
+        <ColumnConstraints minWidth="200" />
+        <ColumnConstraints minWidth="200" />
+    </columnConstraints>
+
+    <!-- Crypto symbol label -->
+    <Label text="Symbol" GridPane.columnIndex="0"/>
+
+    <!-- Crypto name label -->
+    <Label text="Name" GridPane.columnIndex="1"/>
+
+    <!-- Buy button -->
+    <Label text="Action" GridPane.columnIndex="2"/>
+
+</GridPane>
