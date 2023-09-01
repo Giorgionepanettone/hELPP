@@ -1,0 +1,54 @@
+/* styles.css */
+
+/* Header label style */
+.header-label {
+    -fx-font-size: 28px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+/* Styling for the header pane */
+.header-pane {
+    -fx-background-color: #0077cc;
+}
+
+/* Common style for buttons */
+.button {
+    -fx-background-color: #0077cc;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-pref-width: 227px;
+    -fx-pref-height: 61px;
+}
+
+/* Common style for text fields */
+.text-field {
+    -fx-font-size: 19px;
+    -fx-pref-width: 227px;
+    -fx-pref-height: 42px;
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Balance label style */
+#balanceLabel {
+    -fx-font-size: 26px;
+    -fx-text-fill: #0077cc;
+}
+
+/* Styling for all buttons */
+.button:hover {
+    -fx-background-color: #004c80;
+}
+
+/* Styling for the search button */
+#searchButton {
+    -fx-background-image: url('search_icon.png');
+    -fx-background-size: 30px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
