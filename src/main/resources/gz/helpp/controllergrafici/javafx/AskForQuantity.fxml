@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="453.0" style="-fx-background-color: #87CEEB;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="quantityTextField" layoutX="227.0" layoutY="106.0" prefHeight="30.0" prefWidth="149.0" />
+      <Label layoutX="21.0" layoutY="100.0" prefHeight="36.0" prefWidth="206.0" text="Insert quantity:">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel" layoutX="34.0" layoutY="133.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="proceedButton" defaultButton="true" layoutX="227.0" layoutY="180.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="127.0" style="-fx-background-color: #FFD700;" text="Proceed">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Label fx:id="priceLabelTitle" layoutX="133.0" layoutY="57.0" prefHeight="36.0" prefWidth="74.0" text="Price: ">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="priceLabel" layoutX="227.0" layoutY="60.0" prefHeight="30.0" prefWidth="149.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="cryptoLabelTitle" layoutX="116.0" layoutY="12.0" prefHeight="36.0" prefWidth="91.0" text="Crypto:">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font></Label>
+      <Label fx:id="tickerLabel" layoutX="226.0" layoutY="15.0" prefHeight="17.0" prefWidth="185.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
