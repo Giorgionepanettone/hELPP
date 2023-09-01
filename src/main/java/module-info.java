@@ -1,4 +1,4 @@
-module com.example.helpp {
+module gz.helpp{
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
@@ -10,6 +10,6 @@ module com.example.helpp {
     requires org.slf4j;
 
 
-    opens gz.helpp to javafx.fxml, info.picocli;
-    exports gz.helpp;
+    opens gz.helpp.ControllerGrafici.JavaFx to javafx.fxml;
+    exports gz.helpp.ControllerGrafici.JavaFx to javafx.graphics;
 }
