@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<StackPane prefHeight="400" prefWidth="550" style="-fx-background-color: #87CEEB" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+    <children>
+          <VBox prefHeight="240.0" prefWidth="271.0" spacing="10.0" style="-fx-background-color: #87CEEB" styleClass="login-pane">
+              <children>
+                  <GridPane>
+                      <children>
+                          <Label styleClass="label" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                          <Label styleClass="label" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                          <TextField fx:id="usernameTextField" prefHeight="25.0" prefWidth="228.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                          <PasswordField fx:id="passwordPasswordField" prefHeight="25.0" prefWidth="228.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      </children>
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="189.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                  </GridPane>
+                  <StackPane prefHeight="-1.0" prefWidth="215.0" styleClass="login-button-pane">
+                      <children>
+                          <Button fx:id="logInButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#logInButtonClick" prefHeight="43.0" prefWidth="69.0" style="-fx-background-color: #FFD700; -fx-text-fill: black; " text="Login" StackPane.alignment="CENTER_RIGHT">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Button>
+                      </children>
+                  </StackPane>
+                  <Label fx:id="rejectionLabel" styleClass="error-label" />
+                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="26.0" prefWidth="482.0" style="-fx-text-fill: black; -fx-font-weight: bold;" styleClass="register-button" text="Don't have an account? Register">
+               <font>
+                  <Font size="30.0" />
+               </font></Button>
+              </children>
+          </VBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</StackPane>

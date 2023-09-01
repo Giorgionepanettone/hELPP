@@ -10,6 +10,6 @@ module gz.helpp{
     requires org.slf4j;
 
 
-    opens gz.helpp.ControllerGrafici.JavaFx to javafx.fxml;
-    exports gz.helpp.ControllerGrafici.JavaFx to javafx.graphics;
+    opens gz.helpp.controllerGrafici.JavaFx to javafx.fxml;
+    exports gz.helpp.controllerGrafici.JavaFx to javafx.graphics;
 }
