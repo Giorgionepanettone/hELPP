@@ -39,9 +39,6 @@ public class BeanTransaction{
         } catch(NumberFormatException e){
             return false;
         }
-        if(number <= 0) {
-            return false;
-        }
-        return true;
+        return (number>0);
     }
 }
