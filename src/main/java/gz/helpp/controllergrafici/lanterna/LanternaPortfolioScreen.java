@@ -1,8 +1,7 @@
 package gz.helpp.controllergrafici.lanterna;
 
 import com.googlecode.lanterna.gui2.*;
-import gz.helpp.bean.BeanString;
-import gz.helpp.bean.BeanQuantity;
+import gz.helpp.bean.BeanTransaction;
 import gz.helpp.model.ModelCrypto;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
@@ -105,9 +104,9 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
         if(commonLanternaPricesGraphicControllerHelper != null) commonLanternaPricesGraphicControllerHelper.updateCommon(5, 1, true);
     }
 
-    public void updateRow(BeanString beanTicker, BeanQuantity beanQuantity){
-        String ticker = beanTicker.getString();
-        double quantity = beanQuantity.getQuantity();
+    public void updateRow(BeanTransaction beanTransaction){
+        String ticker = beanTransaction.getTicker();
+        double quantity = beanTransaction.getQuantity();
 
         for (int i = 0; i < components.size(); i += 5){
             Component symbolComponent = components.get(i);

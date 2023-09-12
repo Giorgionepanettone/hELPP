@@ -3,9 +3,7 @@ package gz.helpp.controllergrafici.lanterna;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
-import gz.helpp.bean.BeanDouble;
-import gz.helpp.bean.BeanString;
-import gz.helpp.bean.BeanQuantity;
+import gz.helpp.bean.BeanTransaction;
 import gz.helpp.controllerapplicativi.ControllerApplicativoBuyMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoPortfolioScreen;
 import gz.helpp.model.ModelSession;
@@ -78,34 +76,28 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
     }
 
     private void proceedButtonFunc() throws SQLException, IOException {
-        BeanQuantity beanQuantity = new BeanQuantity();
-        String quantityString = quantityTextField.getText();
-        beanQuantity.setQuantity(quantityString);
 
-        if(beanQuantity.getQuantity() == -1){
+        BeanTransaction beanTransaction = new BeanTransaction();
+        beanTransaction.setQuantity(quantityTextField.getText());
+
+
+        if(!beanTransaction.isQuantityValid()){
             errorLabel.setText("invalid input");
             return;
         }
 
-        ModelSession modelSession = ModelSession.getInstance();
+        beanTransaction.setTicker(ticker);
 
-        BeanString beanUser = new BeanString();
-        beanUser.setString(modelSession.getModelUser().getUserName());
+        beanTransaction.setPrice(price);
 
-        BeanString beanTicker = new BeanString();
-        beanTicker.setString(ticker);
-
-        BeanDouble beanPrice = new BeanDouble();
-        beanPrice.setNumber(price);
-
-        LanternaRecap lanternaRecap = new LanternaRecap(ticker, price, Double.parseDouble(quantityString), this.type);
+        LanternaRecap lanternaRecap = new LanternaRecap(ticker, price, beanTransaction.getQuantity(), this.type);
 
 
         if(this.type.equals(ModelTransaction.Type.BUY)){
             ControllerApplicativoBuyMenu controllerApplicativoBuyMenu = new ControllerApplicativoBuyMenu();
             controllerApplicativoBuyMenu.bind(lanternaRecap);
 
-            if(!controllerApplicativoBuyMenu.proceedBuy(beanQuantity, beanUser, beanTicker, beanPrice)){
+            if(!controllerApplicativoBuyMenu.proceedBuy(beanTransaction)){
                 errorLabel.setText("insufficient balance");
                 return;
             }
@@ -115,15 +107,15 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
             ControllerApplicativoPortfolioScreen controllerApplicativoPortfolioScreen = new ControllerApplicativoPortfolioScreen();
             controllerApplicativoPortfolioScreen.bind(lanternaRecap);
 
-            if(controllerApplicativoPortfolioScreen.proceedSell(beanQuantity, beanUser, beanTicker, beanPrice)){
-                lanternaPortfolioScreen.updateRow(beanTicker, beanQuantity);
+            if(controllerApplicativoPortfolioScreen.proceedSell(beanTransaction)){
+                lanternaPortfolioScreen.updateRow(beanTransaction);
             }
             else{
                 this.errorLabel.setText("Not enough coins owned");
                 return;
             }
         }
-        else if(! HandleDepositOrWithdrawHelper.depositOrWithDraw(type, beanQuantity)){
+        else if(! HandleDepositOrWithdrawHelper.depositOrWithDraw(type, beanTransaction)){
                 errorLabel.setText("not enough money on balance");
                 return;
         }

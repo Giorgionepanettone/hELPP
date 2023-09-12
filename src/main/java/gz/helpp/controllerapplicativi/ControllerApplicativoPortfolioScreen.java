@@ -1,8 +1,6 @@
 package gz.helpp.controllerapplicativi;
 
-import gz.helpp.bean.BeanDouble;
-import gz.helpp.bean.BeanString;
-import gz.helpp.bean.BeanQuantity;
+import gz.helpp.bean.BeanTransaction;
 import gz.helpp.dao.TransactionDAO;
 import gz.helpp.dao.UserDao;
 import gz.helpp.model.ModelSession;
@@ -21,11 +19,10 @@ public class ControllerApplicativoPortfolioScreen{
         this.interfacciaControllerGrafico = interfacciaControllerGrafico;
     }
 
-    public boolean proceedSell(BeanQuantity beanQuantity, BeanString usernameBean, BeanString tickerBean, BeanDouble priceBean) throws SQLException {
-        double quantity = beanQuantity.getQuantity();
-        String username = usernameBean.getString();
-        String ticker = tickerBean.getString();
-        double price = priceBean.getNumber();
+    public boolean proceedSell(BeanTransaction beanTransaction) throws SQLException {
+        double quantity = beanTransaction.getQuantity();
+        String ticker = beanTransaction.getTicker();
+        double price = beanTransaction.getPrice();
 
         ModelUser currUser = ModelSession.getInstance().getModelUser();
 
@@ -35,7 +32,7 @@ public class ControllerApplicativoPortfolioScreen{
         }
 
         ModelTransaction transaction = new ModelTransaction();
-        transaction.setUsernameAssociated(username);
+        transaction.setUsernameAssociated(currUser.getUserName());
         transaction.setQuantity(quantity);
         transaction.setPrice(price);
         transaction.setType(ModelTransaction.Type.SELL);

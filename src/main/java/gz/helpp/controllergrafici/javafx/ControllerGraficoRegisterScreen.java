@@ -1,14 +1,12 @@
 package gz.helpp.controllergrafici.javafx;
 
-import gz.helpp.bean.BeanString;
+import gz.helpp.bean.BeanRegistration;
 import gz.helpp.controllerapplicativi.ControllerApplicativoRegisterScreen;
 import gz.helpp.model.ModelSession;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.StandardInitializerMethodJavaFx;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -40,25 +38,22 @@ public class ControllerGraficoRegisterScreen implements InterfacciaControllerGra
 
     @FXML
     protected void registerButtonClick() throws SQLException, InterruptedException {
-        BeanString beanEmail = new BeanString();
-        beanEmail.setString(emailTextField.getText());
+        BeanRegistration beanRegistration = new BeanRegistration();
 
-        BeanString beanUsername = new BeanString();
-        beanUsername.setString(usernameTextField.getText());
+        beanRegistration.setEmail(emailTextField.getText());
+        beanRegistration.setUserName(usernameTextField.getText());
+        beanRegistration.setPassword(passwordField.getText());
 
-        BeanString beanPassword = new BeanString();
-        beanPassword.setString(passwordField.getText());
-
-        if(beanEmail.checkValidity() && beanUsername.checkValidity() && beanPassword.checkValidity()){
-            ControllerApplicativoRegisterScreen controllerApplicativoRegisterScreen = new ControllerApplicativoRegisterScreen();
-            controllerApplicativoRegisterScreen.registerUser(beanUsername, beanEmail, beanPassword);
-            errorLabel.setText("Registration was successful");
-            Thread.sleep(1500);
-            Stage stage = (Stage) errorLabel.getScene().getWindow();
-            stage.close();
-        }
-        else{
+        if(beanRegistration.isInputEmpty()){
             errorLabel.setText("Fields can't be empty");
+            return;
         }
+
+        ControllerApplicativoRegisterScreen controllerApplicativoRegisterScreen = new ControllerApplicativoRegisterScreen();
+        controllerApplicativoRegisterScreen.registerUser(beanRegistration);
+        errorLabel.setText("Registration was successful");
+        Thread.sleep(1500);
+        Stage stage = (Stage) errorLabel.getScene().getWindow();
+        stage.close();
     }
 }

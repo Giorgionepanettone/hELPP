@@ -1,7 +1,6 @@
 package gz.helpp.utils;
 
-
-import gz.helpp.bean.BeanQuantity;
+import gz.helpp.bean.BeanTransaction;
 import gz.helpp.controllerapplicativi.ControllerApplicativoDepositMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoWithdrawMenu;
 import gz.helpp.model.ModelTransaction;
@@ -13,18 +12,18 @@ public class HandleDepositOrWithdrawHelper{
     private HandleDepositOrWithdrawHelper(){
         throw new IllegalStateException("cant instantiate util class HandleDepositOrWithdrawHelper");
     }
-    public static boolean depositOrWithDraw(ModelTransaction.Type type, BeanQuantity beanQuantity) throws SQLException {
+    public static boolean depositOrWithDraw(ModelTransaction.Type type, BeanTransaction beanTransaction) throws SQLException {
 
         if(type.equals(ModelTransaction.Type.DEPOSIT)){
             ControllerApplicativoDepositMenu controllerApplicativoDepositMenu = new ControllerApplicativoDepositMenu();
 
-            controllerApplicativoDepositMenu.deposit(beanQuantity);
+            controllerApplicativoDepositMenu.deposit(beanTransaction);
             return true;
         }
         if(type.equals(ModelTransaction.Type.WITHDRAW)){
             ControllerApplicativoWithdrawMenu controllerApplicativoWithdrawMenu = new ControllerApplicativoWithdrawMenu();
 
-            return controllerApplicativoWithdrawMenu.withdraw(beanQuantity);
+            return controllerApplicativoWithdrawMenu.withdraw(beanTransaction);
         }
         return false;
     }

@@ -1,6 +1,6 @@
 package gz.helpp.controllerapplicativi;
 
-import gz.helpp.bean.BeanQuantity;
+import gz.helpp.bean.BeanTransaction;
 import gz.helpp.dao.UserDao;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelUser;
@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class ControllerApplicativoWithdrawMenu{
 
-    public boolean withdraw(BeanQuantity beanQuantity) throws SQLException {
-        double quantity = beanQuantity.getQuantity();
+    public boolean withdraw(BeanTransaction beanTransaction) throws SQLException {
+        double quantity = beanTransaction.getQuantity();
         if(quantity == -1) return false;
 
         double balance = ModelSession.getInstance().getModelUser().getBalance();

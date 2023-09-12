@@ -1,6 +1,6 @@
 package gz.helpp.controllerapplicativi;
 
-import gz.helpp.bean.BeanString;
+import gz.helpp.bean.BeanLogIn;
 import gz.helpp.dao.UserDao;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelUser;
@@ -16,12 +16,14 @@ public class ControllerApplicativoLogIn {
         this.interfacciaControllerGrafico = interfacciaControllerGrafico;
     }
 
-    public boolean validateLogIn(BeanString username, BeanString password) throws SQLException {
+    public boolean validateLogIn(BeanLogIn beanLogIn) throws SQLException {
 
         UserDao userDao = new UserDao();
-        if(userDao.checkLogIn(username.getString(), password.getString())){
+        String user = beanLogIn.getUserName();
 
-            ModelUser modelUser = userDao.read(username.getString());
+        if(userDao.checkLogIn(user, beanLogIn.getPassword())){
+
+            ModelUser modelUser = userDao.read(user);
             ModelSession.getInstance().setModelUser(modelUser);
             interfacciaControllerGrafico.initializer();
             return true;

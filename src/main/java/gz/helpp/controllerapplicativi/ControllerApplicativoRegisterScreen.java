@@ -1,6 +1,6 @@
 package gz.helpp.controllerapplicativi;
 
-import gz.helpp.bean.BeanString;
+import gz.helpp.bean.BeanRegistration;
 import gz.helpp.dao.UserDao;
 import gz.helpp.model.ModelUser;
 import javafx.util.Pair;
@@ -10,12 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ControllerApplicativoRegisterScreen{
-    public void registerUser(BeanString username, BeanString email, BeanString password) throws SQLException {
+    public void registerUser(BeanRegistration beanRegistration) throws SQLException {
         UserDao userDao = new UserDao();
         Map<String, Pair<Double, Double>> portfolio = new HashMap<>();
-        ModelUser modelUser = new ModelUser(username.getString(), false, portfolio, 0);
-        modelUser.setPassword(password.getString());
-        modelUser.setEmail(email.getString());
+        String email = beanRegistration.getEmail();
+
+        ModelUser modelUser = new ModelUser(beanRegistration.getUserName(), false, portfolio, 0, email);
+        modelUser.setPassword(beanRegistration.getPassword());
+        modelUser.setEmail(email);
         userDao.create(modelUser);
     }
 }

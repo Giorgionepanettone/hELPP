@@ -3,7 +3,7 @@ package gz.helpp.controllergrafici.lanterna;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
-import gz.helpp.bean.BeanString;
+import gz.helpp.bean.BeanRegistration;
 import gz.helpp.controllerapplicativi.ControllerApplicativoRegisterScreen;
 import gz.helpp.model.ModelSession;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
@@ -58,36 +58,36 @@ public class LanternaRegister extends BasicWindow implements InterfacciaControll
                 String password = passwordTextBox.getText();
                 String email = emailTextBox.getText();
 
-                BeanString beanUser = new BeanString();
-                BeanString beanPass = new BeanString();
-                BeanString beanEmail = new BeanString();
+                BeanRegistration beanRegistration = new BeanRegistration();
 
-                beanUser.setString(username);
-                beanPass.setString(password);
-                beanEmail.setString(email);
+                beanRegistration.setUserName(username);
+                beanRegistration.setPassword(password);
+                beanRegistration.setEmail(email);
 
                 ControllerApplicativoRegisterScreen controllerApplicativoRegisterScreen = new ControllerApplicativoRegisterScreen();
                 try {
-                    if(beanUser.checkValidity() && beanPass.checkValidity() && beanEmail.checkValidity()){
-                        controllerApplicativoRegisterScreen.registerUser(beanUser, beanEmail, beanPass);
-                        window.close();
-                        screen.close();
-                    }
-                    else{
+
+                    if(beanRegistration.isInputEmpty()){
                         errorLabel.setText("invalid input");
                     }
+
+                    controllerApplicativoRegisterScreen.registerUser(beanRegistration);
+                    window.close();
+                    screen.close();
+
                 } catch (SQLException | IOException e) {
                     ModelSession.getLogger().error("LanternaRegister initializer method error", e);
                 }
             });
 
             contentPanel.addComponent(registerButton);
-
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Login screen", contentPanel);
             WindowBasedTextGUI textGUI = initializationResult.getTextGUI();
             this.screen = textGUI.getScreen();
             this.window = initializationResult.getWindow();
             textGUI.addWindowAndWait(window);
+
+
         } catch (Exception e) {
             ModelSession.getLogger().error("LanternaRegister initializer method error", e);
         }

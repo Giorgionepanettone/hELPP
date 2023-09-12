@@ -2,7 +2,7 @@ package gz.helpp.controllergrafici.lanterna;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import gz.helpp.bean.BeanString;
+import gz.helpp.bean.BeanLogIn;
 import gz.helpp.controllerapplicativi.ControllerApplicativoLogIn;
 import gz.helpp.model.ModelSession;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
@@ -26,38 +26,41 @@ class MyWindow extends BasicWindow implements InterfacciaControllerGrafico {
             contentPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
 
             TextBox usernameTextBox = new TextBox();
-            usernameTextBox.setPreferredSize(new TerminalSize(30, 1)); // Adjust size
+            usernameTextBox.setPreferredSize(new TerminalSize(30, 1));
             contentPanel.addComponent(new Label("Username:"));
             contentPanel.addComponent(usernameTextBox);
 
             Label errorLabel = new Label("");
 
             TextBox passwordTextBox = new TextBox();
-            passwordTextBox.setPreferredSize(new TerminalSize(30, 1)); // Adjust size
-            passwordTextBox.setMask('*'); // Mask the password
+            passwordTextBox.setPreferredSize(new TerminalSize(30, 1));
+            passwordTextBox.setMask('*'); // Mask password
             contentPanel.addComponent(new Label("Password:"));
             contentPanel.addComponent(passwordTextBox);
+
 
             contentPanel.addComponent(new EmptySpace(new TerminalSize(0, 1)));
 
             Button loginButton = new Button("Login", () -> {
-                BeanString beanUser = new BeanString();
-                BeanString beanPass = new BeanString();
+                BeanLogIn beanLogIn = new BeanLogIn();
 
-                beanUser.setString(usernameTextBox.getText());
-                beanPass.setString(passwordTextBox.getText());
+                beanLogIn.setUserName(usernameTextBox.getText());
+                beanLogIn.setPassword(passwordTextBox.getText());
 
                 try {
-                    if(beanUser.checkValidity() && beanPass.checkValidity()){
-                        ControllerApplicativoLogIn controllerApplicativoLogIn = new ControllerApplicativoLogIn();
-                        controllerApplicativoLogIn.link(new LanternaMainMenu());
-                        if(!controllerApplicativoLogIn.validateLogIn(beanUser, beanPass)){
-                            errorLabel.setText("user and password don't match, please try again");
-                        }
-                    }
-                    else{
+                    if(beanLogIn.isInputEmpty()) {
                         errorLabel.setText("invalid input");
+                        return;
                     }
+
+                    ControllerApplicativoLogIn controllerApplicativoLogIn = new ControllerApplicativoLogIn();
+                    controllerApplicativoLogIn.link(new LanternaMainMenu());
+
+                    if(!controllerApplicativoLogIn.validateLogIn(beanLogIn)){
+                        errorLabel.setText("user and password don't match, please try again");
+                    }
+
+
                 } catch (SQLException e) {
                     ModelSession.getLogger().error("sql error in LanternaStart", e);
                 }
@@ -80,6 +83,7 @@ class MyWindow extends BasicWindow implements InterfacciaControllerGrafico {
 
             InitializationResult initializationResult = LanternaCommonCodeUtils.createAndInitializeWindow("Login screen", contentPanel);
             initializationResult.getTextGUI().addWindowAndWait(initializationResult.getWindow());
+
         } catch (Exception e) {
             ModelSession.getLogger().error("LanternaStart initializer error", e);
         }

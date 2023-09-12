@@ -1,21 +1,16 @@
 package gz.helpp.controllergrafici.javafx;
 
-import gz.helpp.bean.BeanString;
+import gz.helpp.bean.BeanLogIn;
 import gz.helpp.controllerapplicativi.ControllerApplicativoLogIn;
 import gz.helpp.model.ModelSession;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.StandardInitializerMethodJavaFx;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -49,22 +44,22 @@ public class ControllerGraficoLogInScreen implements InterfacciaControllerGrafic
 
     @FXML
     protected void logInButtonClick() throws SQLException {
-        BeanString beanUsername = new BeanString();
-        BeanString beanPassword = new BeanString();
+        BeanLogIn beanLogIn = new BeanLogIn();
 
-        beanUsername.setString(usernameTextField.getText());
-        beanPassword.setString(passwordPasswordField.getText());
+        beanLogIn.setUserName(usernameTextField.getText());
+        beanLogIn.setPassword(passwordPasswordField.getText());
 
-        if (beanUsername.checkValidity() && beanPassword.checkValidity()) {
-            ControllerApplicativoLogIn controllerApplicativoLogIn = new ControllerApplicativoLogIn();
-
-            ControllerGraficoMainMenu controllerGraficoMainMenu = new ControllerGraficoMainMenu();
-            controllerApplicativoLogIn.link(controllerGraficoMainMenu);
-
-            if(!controllerApplicativoLogIn.validateLogIn(beanUsername, beanPassword)) rejectionLabel.setText("user and password don't match");
-        }
-        else {
+        if (beanLogIn.isInputEmpty()){
             rejectionLabel.setText("Fields can't be empty");
+            return;
         }
+
+        ControllerApplicativoLogIn controllerApplicativoLogIn = new ControllerApplicativoLogIn();
+
+        ControllerGraficoMainMenu controllerGraficoMainMenu = new ControllerGraficoMainMenu();
+        controllerApplicativoLogIn.link(controllerGraficoMainMenu);
+
+        if(!controllerApplicativoLogIn.validateLogIn(beanLogIn)) rejectionLabel.setText("user and password don't match");
+
     }
 }

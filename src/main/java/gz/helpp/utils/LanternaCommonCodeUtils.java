@@ -25,6 +25,7 @@ public class LanternaCommonCodeUtils{
             WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
             BasicWindow window = new BasicWindow(windowName);
 
+
             window.setComponent(contentPanel);
 
             return new InitializationResult(terminalFactory, textGUI, window, contentPanel);

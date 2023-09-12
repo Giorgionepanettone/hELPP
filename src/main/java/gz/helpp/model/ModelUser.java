@@ -17,11 +17,12 @@ public class ModelUser{
     private String email;
     private List<BalanceObserver> observers = new ArrayList<>();
 
-    public ModelUser( String userName, boolean isFinancialAdvisor, Map<String, Pair<Double, Double>> portfolio, double balance){
+    public ModelUser( String userName, boolean isFinancialAdvisor, Map<String, Pair<Double, Double>> portfolio, double balance, String email){
         this.userName = userName;
         this.isFinancialAdvisor = isFinancialAdvisor;
         this.portfolio = portfolio;
         this.balance = balance;
+        this.email = email;
     }
 
     public void setUserName(String userName) {

@@ -1,8 +1,6 @@
 package gz.helpp.controllergrafici.javafx;
 
-import gz.helpp.bean.BeanDouble;
-import gz.helpp.bean.BeanString;
-import gz.helpp.bean.BeanQuantity;
+import gz.helpp.bean.BeanTransaction;
 import gz.helpp.controllerapplicativi.ControllerApplicativoBuyMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoPortfolioScreen;
 import gz.helpp.model.ModelSession;
@@ -97,27 +95,18 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
 
     @FXML
     protected void proceedButtonClick() throws SQLException, IOException {
-        BeanQuantity beanQuantity = new BeanQuantity();
-        beanQuantity.setQuantity(quantityTextField.getText());
+        BeanTransaction beanTransaction = new BeanTransaction();
+        beanTransaction.setQuantity(quantityTextField.getText());
 
-        if(beanQuantity.getQuantity() == -1){
+        if(!beanTransaction.isQuantityValid()){
             errorLabel.setText("invalid input");
             return;
         }
 
-        ModelSession modelSession = ModelSession.getInstance();
+        beanTransaction.setTicker(ticker);
 
-        BeanString beanUser = new BeanString();
-        beanUser.setString(modelSession.getModelUser().getUserName());
 
-        BeanString beanTicker = new BeanString();
-        beanTicker.setString(ticker);
-
-        BeanDouble beanPrice = new BeanDouble();
-        if(!priceLabel.getText().equals("")) {
-
-            beanPrice.setNumber((Double.parseDouble(priceLabel.getText().replace("€", ""))));
-        }
+        if(!price.equals("")) beanTransaction.setPrice(Double.parseDouble(price.replace("€", "")));
 
         ControllerGraficoRecap controllerGraficoRecap = new ControllerGraficoRecap();
         controllerGraficoRecap.setType(this.type);
@@ -128,7 +117,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             controllerApplicativoBuyMenu.bind(controllerGraficoRecap);
 
 
-            if(!controllerApplicativoBuyMenu.proceedBuy(beanQuantity, beanUser, beanTicker, beanPrice)){
+            if(!controllerApplicativoBuyMenu.proceedBuy(beanTransaction)){
                 errorLabel.setText("insufficient balance");
                 return;
             }
@@ -140,7 +129,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             ControllerApplicativoPortfolioScreen controllerApplicativoPortfolioScreen = new ControllerApplicativoPortfolioScreen();
             controllerApplicativoPortfolioScreen.bind(controllerGraficoRecap);
 
-            if(controllerApplicativoPortfolioScreen.proceedSell(beanQuantity, beanUser, beanTicker, beanPrice)){
+            if(controllerApplicativoPortfolioScreen.proceedSell(beanTransaction)){
                 controllerGraficoPortfolioScreen.updateRow(ticker);
             }
             else{
@@ -151,7 +140,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             controllerGraficoRecap.setCryptoLabel(ticker);
             controllerGraficoRecap.setPriceLabel(priceLabel.getText());
         }
-        else if(! HandleDepositOrWithdrawHelper.depositOrWithDraw(type, beanQuantity)){
+        else if(! HandleDepositOrWithdrawHelper.depositOrWithDraw(type, beanTransaction)){
             errorLabel.setText("not enough money on balance");
             return;
         }

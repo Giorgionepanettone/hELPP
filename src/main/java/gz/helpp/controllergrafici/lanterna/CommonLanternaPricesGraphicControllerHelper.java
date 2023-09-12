@@ -42,27 +42,28 @@ public class CommonLanternaPricesGraphicControllerHelper{
             catch(Exception e){
                 break;
             }
-            if (symbolComponent instanceof Label symbolLabel) {
-                symbolLabel = (Label) symbolComponent;
-                if (symbolLabel.getText().equals(ticker)) {
-                    int priceLabelIndex = i + offset;
-                    Component priceComponent = components.get(priceLabelIndex);
-                    Label priceLabel = (Label) priceComponent;
-                    ModelCrypto crypto = displayedCryptoList.get(j);
-                    double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
-                    crypto.setPrice(price);
-                    priceLabel.setText(Double.toString(price));
 
-                    if(profitCalculation){
-                        Label profitLabel = (Label) components.get(priceLabelIndex + 1);
-                        Pair<Double, Double> pair = portfolio.get(ticker);
-                        Double profit = price * pair.getKey() - pair.getValue();
-                        profitLabel.setText(Double.toString(profit));
-                    }
-                    j++;
-                }
+            if (!(symbolComponent instanceof Label symbolLabel)) continue;
+
+            symbolLabel = (Label) symbolComponent;
+
+            if (!(symbolLabel.getText().equals(ticker))) continue;
+
+            int priceLabelIndex = i + offset;
+            Component priceComponent = components.get(priceLabelIndex);
+            Label priceLabel = (Label) priceComponent;
+            ModelCrypto crypto = displayedCryptoList.get(j);
+            double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
+            crypto.setPrice(price);
+            priceLabel.setText(Double.toString(price));
+
+            if(profitCalculation){
+                Label profitLabel = (Label) components.get(priceLabelIndex + 1);
+                Pair<Double, Double> pair = portfolio.get(ticker);
+                Double profit = price * pair.getKey() - pair.getValue();
+                profitLabel.setText(Double.toString(profit));
             }
+            j++;
         }
-
     }
 }

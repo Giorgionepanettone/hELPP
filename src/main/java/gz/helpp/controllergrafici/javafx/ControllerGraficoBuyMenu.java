@@ -5,6 +5,7 @@ import gz.helpp.model.ModelTransaction;
 import gz.helpp.observerpattern.Observer;
 import gz.helpp.observerpatternimpl.CryptoUpdater;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
+import gz.helpp.supportedcrypto.CryptoList;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,30 +83,15 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
     }
 
     public void initializeCrypto() {
-        String string = "initializing";
-        addRow("BTC", "Bitcoin", string);
-        addRow("ETH", "Ethereum", string);
-        addRow("LTC", "Litecoin", string);
-        addRow("XRP", "Ripple", string);
-        addRow("BCH", "Bitcoin Cash", string);
-        addRow("USDT", "Tether", string);
-        addRow("ADA", "Cardano", string);
-        addRow("MATIC", "Polygon", string);
-        addRow("DOGE", "Dogecoin", string);
-        addRow("SOL", "Solana", string);
-
+        String string = "retrieving data";
+        String[][] supportedCryptoList = new CryptoList().getCryptoList();
         displayedCrypto = new ArrayList<>();
 
-        displayedCrypto.add("BTC");
-        displayedCrypto.add("ETH");
-        displayedCrypto.add("LTC");
-        displayedCrypto.add("XRP");
-        displayedCrypto.add("BCH");
-        displayedCrypto.add("USDT");
-        displayedCrypto.add("ADA");
-        displayedCrypto.add("MATIC");
-        displayedCrypto.add("DOGE");
-        displayedCrypto.add("SOL");
+        for(int i = 0; i < supportedCryptoList.length; i++){
+            String ticker = supportedCryptoList[i][0];
+            addRow(ticker, supportedCryptoList[i][1], string);
+            displayedCrypto.add(ticker);
+        }
     }
 
     static String findSymbolForButton(Button buyButton, int i, GridPane gridPane) {

@@ -47,6 +47,7 @@ public class UserDao implements DAO<ModelUser>{
         String nickName = null;
         double balance = 0;
         Boolean isFinancialAdvisor = null;
+        String email = null;
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
@@ -55,6 +56,7 @@ public class UserDao implements DAO<ModelUser>{
             nickName = resultSet.getString("Nickname");
             isFinancialAdvisor = resultSet.getBoolean("isFinancialAdvisor");
             balance = resultSet.getDouble("balance");
+            email = resultSet.getString("email");
             resultSet.close();
         }
         catch(Exception e){
@@ -82,7 +84,7 @@ public class UserDao implements DAO<ModelUser>{
                 portfolio.put(resultSet1.getString("ticker"), pair);
             }
             resultSet1.close();
-            return new ModelUser(nickName, isFinancialAdvisor, portfolio, balance);
+            return new ModelUser(nickName, isFinancialAdvisor, portfolio, balance, email);
         }
         catch(Exception e)
         {
