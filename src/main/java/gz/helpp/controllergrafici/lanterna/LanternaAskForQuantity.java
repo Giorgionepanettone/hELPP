@@ -7,7 +7,6 @@ import gz.helpp.bean.BeanTransaction;
 import gz.helpp.controllerapplicativi.ControllerApplicativoBuyMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoPortfolioScreen;
 import gz.helpp.model.ModelSession;
-import gz.helpp.model.ModelTransaction;
 import gz.helpp.model.ModelTransactionType;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.HandleDepositOrWithdrawHelper;

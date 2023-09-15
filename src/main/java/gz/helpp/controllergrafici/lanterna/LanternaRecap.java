@@ -2,7 +2,6 @@ package gz.helpp.controllergrafici.lanterna;
 
 import com.googlecode.lanterna.gui2.*;
 import gz.helpp.model.ModelSession;
-import gz.helpp.model.ModelTransaction;
 import gz.helpp.model.ModelTransactionType;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.LanternaCommonCodeUtils;

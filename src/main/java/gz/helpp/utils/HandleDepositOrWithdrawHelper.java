@@ -3,7 +3,6 @@ package gz.helpp.utils;
 import gz.helpp.bean.BeanTransaction;
 import gz.helpp.controllerapplicativi.ControllerApplicativoDepositMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoWithdrawMenu;
-import gz.helpp.model.ModelTransaction;
 import gz.helpp.model.ModelTransactionType;
 
 import java.sql.SQLException;

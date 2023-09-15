@@ -15,9 +15,7 @@ public class TransactionDaoFile implements DAO<ModelTransaction>{
 
     JsonDBTemplate jsonDBTemplate = new JsonDBTemplate(dbFilesLocation, baseScanPackage, null);
 
-    public void TransactionDaoFile(){
 
-    }
     @Override
     public void create(ModelTransaction modelTransaction) throws SQLException {
         if(!jsonDBTemplate.collectionExists(ModelTransaction.class)){

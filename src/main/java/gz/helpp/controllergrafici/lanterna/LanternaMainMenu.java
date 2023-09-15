@@ -3,7 +3,6 @@ package gz.helpp.controllergrafici.lanterna;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import gz.helpp.model.ModelSession;
-import gz.helpp.model.ModelTransaction;
 import gz.helpp.model.ModelTransactionType;
 import gz.helpp.observerpattern.BalanceObserver;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
