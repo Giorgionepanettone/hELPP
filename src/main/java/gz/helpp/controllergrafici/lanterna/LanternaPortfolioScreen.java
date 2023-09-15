@@ -4,7 +4,7 @@ import com.googlecode.lanterna.gui2.*;
 import gz.helpp.bean.BeanTransaction;
 import gz.helpp.model.ModelCrypto;
 import gz.helpp.model.ModelSession;
-import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.observerpattern.Observer;
 import gz.helpp.observerpatternimpl.CryptoUpdater;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
@@ -69,7 +69,7 @@ public class LanternaPortfolioScreen extends BasicWindow implements InterfacciaC
 
                 displayedCryptoList.add(crypto);
                 Button sellButton = new Button("Sell", () -> {
-                    LanternaAskForQuantity lanternaAskForQuantity = new LanternaAskForQuantity(ticker, crypto.getPrice(), ModelTransaction.Type.SELL);
+                    LanternaAskForQuantity lanternaAskForQuantity = new LanternaAskForQuantity(ticker, crypto.getPrice(), ModelTransactionType.Type.SELL);
                     lanternaAskForQuantity.bindLanternaPortfolioScreen(this);
                     lanternaAskForQuantity.initializer();
                 });

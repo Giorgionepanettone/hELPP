@@ -5,6 +5,7 @@ import gz.helpp.controllerapplicativi.ControllerApplicativoBuyMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoPortfolioScreen;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.HandleDepositOrWithdrawHelper;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ import java.sql.SQLException;
 
 public class ControllerGraficoAskForQuantity implements InterfacciaControllerGrafico {
     private String ticker;
-    private ModelTransaction.Type type;
+    private ModelTransactionType.Type type;
     private String price;
     @FXML
     private Label priceLabel;
@@ -45,7 +46,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
     @FXML
     private Button proceedButton;
 
-    public ControllerGraficoAskForQuantity(String ticker, ModelTransaction.Type type, String price) {
+    public ControllerGraficoAskForQuantity(String ticker, ModelTransactionType.Type type, String price) {
         this.ticker = ticker;
         this.type = type;
         this.price = price;
@@ -63,7 +64,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
 
             priceLabel.setText(price);
             tickerLabel.setText(ticker);
-            if(this.type.equals(ModelTransaction.Type.DEPOSIT) || this.type.equals(ModelTransaction.Type.WITHDRAW)) {
+            if(this.type.equals(ModelTransactionType.Type.DEPOSIT) || this.type.equals(ModelTransactionType.Type.WITHDRAW)) {
                 this.cryptoLabelTitle.setText("");
                 this.priceLabelTitle.setText("");
             }
@@ -111,7 +112,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
         ControllerGraficoRecap controllerGraficoRecap = new ControllerGraficoRecap();
         controllerGraficoRecap.setType(this.type);
 
-        if(this.type.equals(ModelTransaction.Type.BUY)){
+        if(this.type.equals(ModelTransactionType.Type.BUY)){
             ControllerApplicativoBuyMenu controllerApplicativoBuyMenu = new ControllerApplicativoBuyMenu();
 
             controllerApplicativoBuyMenu.bind(controllerGraficoRecap);
@@ -125,7 +126,7 @@ public class ControllerGraficoAskForQuantity implements InterfacciaControllerGra
             controllerGraficoRecap.setCryptoLabel(ticker);
             controllerGraficoRecap.setPriceLabel(priceLabel.getText());
         }
-        else if(this.type.equals(ModelTransaction.Type.SELL)){
+        else if(this.type.equals(ModelTransactionType.Type.SELL)){
             ControllerApplicativoPortfolioScreen controllerApplicativoPortfolioScreen = new ControllerApplicativoPortfolioScreen();
             controllerApplicativoPortfolioScreen.bind(controllerGraficoRecap);
 

@@ -1,5 +1,6 @@
 package gz.helpp.observerpatternimpl;
 
+import gz.helpp.bean.BeanMarketData;
 import gz.helpp.observerpattern.Observer;
 import gz.helpp.observerpattern.Subject;
 import org.knowm.xchange.bitstamp.service.BitstampMarketDataService;
@@ -32,9 +33,8 @@ public class CryptoUpdater implements Subject { //singleton
         this.bitstampMarketDataService = bitstampMarketDataService;
     }
 
-    public BitstampMarketDataService getState(){
-
-        return this.bitstampMarketDataService;
+    public BeanMarketData getState(){
+        return new BeanMarketData(bitstampMarketDataService);
     }
     public synchronized void register(Observer obj){
         synchronized (lock) {

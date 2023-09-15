@@ -2,6 +2,7 @@ package gz.helpp.controllergrafici.javafx;
 
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +28,7 @@ public class ControllerGraficoRecap implements InterfacciaControllerGrafico {
 
 
 
-    private ModelTransaction.Type type;
+    private ModelTransactionType.Type type;
 
 
     @Override
@@ -40,10 +41,10 @@ public class ControllerGraficoRecap implements InterfacciaControllerGrafico {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
 
-            if(type.equals(ModelTransaction.Type.SELL)){
+            if(type.equals(ModelTransactionType.Type.SELL)){
                 this.congratulationsLabel.setText("Congratulations for your sale!");
             }
-            else if(type.equals(ModelTransaction.Type.BUY)){
+            else if(type.equals(ModelTransactionType.Type.BUY)){
                 this.congratulationsLabel.setText("Congratulations for your purchase!");
             }
             else{
@@ -70,7 +71,7 @@ public class ControllerGraficoRecap implements InterfacciaControllerGrafico {
 
     public void setCongratulationsLabel(String string){congratulationsLabel.setText(string);}
 
-    public void setType(ModelTransaction.Type type) {
+    public void setType(ModelTransactionType.Type type) {
         this.type = type;
     }
 

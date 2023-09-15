@@ -2,6 +2,7 @@ package gz.helpp.controllergrafici.lanterna;
 
 import com.googlecode.lanterna.gui2.Component;
 import com.googlecode.lanterna.gui2.Label;
+import gz.helpp.bean.BeanMarketData;
 import gz.helpp.model.ModelCrypto;
 import gz.helpp.observerpatternimpl.CryptoUpdater;
 import gz.helpp.controllergrafici.javafx.*;
@@ -29,7 +30,8 @@ public class CommonLanternaPricesGraphicControllerHelper{
     }
 
     public void updateCommon(int increment, int offset, boolean profitCalculation) throws IOException {
-        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
+        BeanMarketData beanMarketData = cryptoUpdater.getState();
+        BitstampMarketDataService bitstampMarketDataService = beanMarketData.getBitstampMarketDataService();
         if(displayedCryptoList == null) return;
 
         int j = 0;
@@ -52,7 +54,7 @@ public class CommonLanternaPricesGraphicControllerHelper{
                     ModelCrypto crypto = displayedCryptoList.get(j);
                     double price = ControllerGraficoBuyMenu.getPrice(ticker + "/EUR" ,bitstampMarketDataService);
                     crypto.setPrice(price);
-                    priceLabel.setText(Double.toString(price));
+                    priceLabel.setText("€" + Double.toString(price) );
 
                     if(profitCalculation){
                         Label profitLabel = (Label) components.get(priceLabelIndex + 1);

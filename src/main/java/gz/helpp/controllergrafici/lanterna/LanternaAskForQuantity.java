@@ -8,6 +8,7 @@ import gz.helpp.controllerapplicativi.ControllerApplicativoBuyMenu;
 import gz.helpp.controllerapplicativi.ControllerApplicativoPortfolioScreen;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.HandleDepositOrWithdrawHelper;
 import gz.helpp.utils.LanternaCommonCodeUtils;
@@ -21,7 +22,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
 
     private double price;
 
-    private ModelTransaction.Type type;
+    private ModelTransactionType.Type type;
 
     private TextBox quantityTextField;
 
@@ -33,7 +34,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
 
     private Screen screen;
 
-    public LanternaAskForQuantity(String ticker, double price, ModelTransaction.Type type){
+    public LanternaAskForQuantity(String ticker, double price, ModelTransactionType.Type type){
         this.ticker = ticker;
         this.price = price;
         this.type = type;
@@ -45,7 +46,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
             contentPanel.setLayoutManager(new GridLayout(2));
 
             Label priceLabel = new Label("");
-            if(type.equals(ModelTransaction.Type.BUY) || type.equals(ModelTransaction.Type.SELL)) priceLabel.setText(Double.toString(price));
+            if(type.equals(ModelTransactionType.Type.BUY) || type.equals(ModelTransactionType.Type.SELL)) priceLabel.setText(Double.toString(price));
 
             contentPanel.addComponent(priceLabel);
 
@@ -93,7 +94,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
         LanternaRecap lanternaRecap = new LanternaRecap(ticker, price, beanTransaction.getQuantity(), this.type);
 
 
-        if(this.type.equals(ModelTransaction.Type.BUY)){
+        if(this.type.equals(ModelTransactionType.Type.BUY)){
             ControllerApplicativoBuyMenu controllerApplicativoBuyMenu = new ControllerApplicativoBuyMenu();
             controllerApplicativoBuyMenu.bind(lanternaRecap);
 
@@ -103,7 +104,7 @@ public class LanternaAskForQuantity extends BasicWindow implements InterfacciaCo
             }
 
         }
-        else if(this.type.equals(ModelTransaction.Type.SELL)){
+        else if(this.type.equals(ModelTransactionType.Type.SELL)){
             ControllerApplicativoPortfolioScreen controllerApplicativoPortfolioScreen = new ControllerApplicativoPortfolioScreen();
             controllerApplicativoPortfolioScreen.bind(lanternaRecap);
 

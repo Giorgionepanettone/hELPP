@@ -1,7 +1,9 @@
 package gz.helpp.controllergrafici.javafx;
 
+import gz.helpp.bean.BeanMarketData;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.observerpattern.Observer;
 import gz.helpp.observerpatternimpl.CryptoUpdater;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
@@ -120,7 +122,7 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
             } catch (IOException e) {
                 ModelSession.getLogger().error("ControllerGraficoPortfolioScreen addRow method error", e);
             }
-            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransaction.Type.SELL, currentPrice);
+            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransactionType.Type.SELL, currentPrice);
             controllerGraficoAskForQuantity.initializer();
 
             controllerGraficoAskForQuantity.setControllerGraficoPortfolioScreen(this);
@@ -145,7 +147,8 @@ public class ControllerGraficoPortfolioScreen implements InterfacciaControllerGr
     @Override
     public void update() throws IOException {
         Set<Map.Entry<String, Pair<Double, Double>>> entrySet = portfolio.entrySet();
-        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
+        BeanMarketData beanMarketData = cryptoUpdater.getState();
+        BitstampMarketDataService bitstampMarketDataService = beanMarketData.getBitstampMarketDataService();
         for (Map.Entry<String, Pair<Double, Double>> entry : entrySet){
             String ticker = entry.getKey();
             int rowIndex = getRowIndex(ticker);

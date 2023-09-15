@@ -11,9 +11,13 @@ public class TransactionDaoFile implements DAO<ModelTransaction>{
 
     String dbFilesLocation = System.getenv("FileDbLocation");
 
-    String baseScanPackage = "com.example.helpp";
+    String baseScanPackage = "gz.helpp.model";
 
     JsonDBTemplate jsonDBTemplate = new JsonDBTemplate(dbFilesLocation, baseScanPackage, null);
+
+    public void TransactionDaoFile(){
+
+    }
     @Override
     public void create(ModelTransaction modelTransaction) throws SQLException {
         if(!jsonDBTemplate.collectionExists(ModelTransaction.class)){

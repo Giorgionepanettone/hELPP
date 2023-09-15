@@ -2,7 +2,8 @@ package gz.helpp.controllergrafici.javafx;
 
 import gz.helpp.controllerapplicativi.ControllerApplicativoMainMenu;
 import gz.helpp.model.ModelSession;
-import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
+import gz.helpp.model.ModelTransactionType.Type;
 import gz.helpp.observerpattern.BalanceObserver;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import javafx.fxml.FXML;
@@ -64,7 +65,7 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
     @FXML
     protected void depositButtonClick(){
         ControllerApplicativoMainMenu controllerApplicativoMainMenu = new ControllerApplicativoMainMenu();
-        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity("", ModelTransaction.Type.DEPOSIT, "");
+        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity("", ModelTransactionType.Type.DEPOSIT, "");
 
         controllerApplicativoMainMenu.bind(controllerGraficoAskForQuantity);
         controllerApplicativoMainMenu.portfolioOrProfileOrWithdrawOrDeposit();
@@ -73,7 +74,7 @@ public class ControllerGraficoMainMenu implements InterfacciaControllerGrafico, 
     @FXML
     protected void withdrawButtonClick(){
         ControllerApplicativoMainMenu controllerApplicativoMainMenu = new ControllerApplicativoMainMenu();
-        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity("", ModelTransaction.Type.WITHDRAW, "");
+        ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity("", ModelTransactionType.Type.WITHDRAW, "");
         controllerApplicativoMainMenu.bind(controllerGraficoAskForQuantity);
         controllerApplicativoMainMenu.portfolioOrProfileOrWithdrawOrDeposit();
     }

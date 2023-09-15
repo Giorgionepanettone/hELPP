@@ -4,6 +4,7 @@ import com.googlecode.lanterna.gui2.*;
 import gz.helpp.model.ModelCrypto;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.observerpattern.Observer;
 import gz.helpp.observerpatternimpl.CryptoUpdater;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
@@ -66,7 +67,7 @@ public class LanternaBuyMenuScreen extends BasicWindow implements InterfacciaCon
 
                     String cryptoTicker = cryptoList[rowIdx][0];
                     double price = findOutCryptoPrice(cryptoTicker);
-                    LanternaAskForQuantity lanternaAskForQuantity = new LanternaAskForQuantity(cryptoTicker, price, ModelTransaction.Type.BUY);
+                    LanternaAskForQuantity lanternaAskForQuantity = new LanternaAskForQuantity(cryptoTicker, price, ModelTransactionType.Type.BUY);
                     lanternaAskForQuantity.initializer();
                 });
 

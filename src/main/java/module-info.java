@@ -12,4 +12,5 @@ module gz.helpp{
 
     opens gz.helpp.controllergrafici.javafx to javafx.fxml;
     exports gz.helpp.controllergrafici.javafx to javafx.graphics;
+    exports gz.helpp.model;
 }

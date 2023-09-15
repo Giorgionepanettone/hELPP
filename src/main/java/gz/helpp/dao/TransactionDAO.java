@@ -3,6 +3,7 @@ package gz.helpp.dao;
 import gz.helpp.exceptions.UnsupportedFunctionRuntimeException;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 
 
 import java.sql.*;
@@ -72,7 +73,7 @@ public class TransactionDAO implements DAO<ModelTransaction>{
             modelTransaction.setCryptoTicker(resultSet.getString("cryptoTicker"));
             modelTransaction.setQuantity(resultSet.getInt("quantity"));
             modelTransaction.setPrice(resultSet.getInt("price"));
-            modelTransaction.setType(ModelTransaction.Type.valueOf(resultSet.getString("type")));
+            modelTransaction.setType(ModelTransactionType.Type.valueOf(resultSet.getString("type")));
             modelTransactionArray.add(modelTransaction);
 
         }

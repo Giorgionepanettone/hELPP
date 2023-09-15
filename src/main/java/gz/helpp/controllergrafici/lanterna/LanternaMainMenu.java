@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.observerpattern.BalanceObserver;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.LanternaCommonCodeUtils;
@@ -34,10 +35,10 @@ public class LanternaMainMenu extends BasicWindow implements InterfacciaControll
             Button portfolioButton = new Button("Portfolio", () -> new LanternaPortfolioScreen().initializer());
             contentPanel.addComponent(portfolioButton);
 
-            Button depositButton = new Button("Deposit", () -> new LanternaAskForQuantity("", -1, ModelTransaction.Type.DEPOSIT).initializer());
+            Button depositButton = new Button("Deposit", () -> new LanternaAskForQuantity("", -1, ModelTransactionType.Type.DEPOSIT).initializer());
             contentPanel.addComponent(depositButton);
 
-            Button withdrawButton = new Button("Withdraw", () -> new LanternaAskForQuantity("", -1, ModelTransaction.Type.WITHDRAW).initializer());
+            Button withdrawButton = new Button("Withdraw", () -> new LanternaAskForQuantity("", -1, ModelTransactionType.Type.WITHDRAW).initializer());
             contentPanel.addComponent(withdrawButton);
 
             balanceLabel = new Label("balance : €" + ModelSession.getInstance().getModelUser().getBalance());

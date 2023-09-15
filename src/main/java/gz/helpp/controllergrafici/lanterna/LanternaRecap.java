@@ -3,6 +3,7 @@ package gz.helpp.controllergrafici.lanterna;
 import com.googlecode.lanterna.gui2.*;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import gz.helpp.utils.LanternaCommonCodeUtils;
 
@@ -13,9 +14,9 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
 
     private double quantity;
 
-    private ModelTransaction.Type type;
+    private ModelTransactionType.Type type;
 
-    public LanternaRecap(String cryptoTicker, double price, double quantity, ModelTransaction.Type type){
+    public LanternaRecap(String cryptoTicker, double price, double quantity, ModelTransactionType.Type type){
              this.cryptoTicker = cryptoTicker;
              this.price = price;
              this.quantity = quantity;
@@ -42,7 +43,7 @@ public class LanternaRecap extends BasicWindow implements InterfacciaControllerG
 
             Label congratulationLabel;
 
-            if(type.equals(ModelTransaction.Type.BUY)) congratulationLabel = new Label("Congratulations! Your purchase was successful");
+            if(type.equals(ModelTransactionType.Type.BUY)) congratulationLabel = new Label("Congratulations! Your purchase was successful");
             else congratulationLabel = new Label("Congratulations! Your sale was successful");
 
             congratulationLabel.setLayoutData(LinearLayout.createLayoutData(LinearLayout.Alignment.Center));

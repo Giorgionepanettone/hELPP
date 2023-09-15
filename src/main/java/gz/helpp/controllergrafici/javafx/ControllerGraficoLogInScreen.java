@@ -31,6 +31,8 @@ public class ControllerGraficoLogInScreen implements InterfacciaControllerGrafic
             fxmlLoader.setController(this);
 
             StandardInitializerMethodJavaFx.standardInitializer(fxmlLoader);
+            usernameTextField.getScene().getWindow().setWidth(435);
+
         }
         catch(Exception e){
             ModelSession.getLogger().error("ControllerGraficoLogInScreen initializer method error",e );

@@ -5,6 +5,7 @@ import gz.helpp.dao.TransactionDAO;
 import gz.helpp.dao.UserDao;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.model.ModelUser;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
 import javafx.util.Pair;
@@ -35,7 +36,7 @@ public class ControllerApplicativoPortfolioScreen{
         transaction.setUsernameAssociated(currUser.getUserName());
         transaction.setQuantity(quantity);
         transaction.setPrice(price);
-        transaction.setType(ModelTransaction.Type.SELL);
+        transaction.setType(ModelTransactionType.Type.SELL);
         transaction.setCryptoTicker(ticker);
         long millis=System.currentTimeMillis();
         java.sql.Date date=new java.sql.Date(millis);

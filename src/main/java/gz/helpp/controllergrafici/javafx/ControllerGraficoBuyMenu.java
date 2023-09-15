@@ -1,7 +1,9 @@
 package gz.helpp.controllergrafici.javafx;
 
+import gz.helpp.bean.BeanMarketData;
 import gz.helpp.model.ModelSession;
 import gz.helpp.model.ModelTransaction;
+import gz.helpp.model.ModelTransactionType;
 import gz.helpp.observerpattern.Observer;
 import gz.helpp.observerpatternimpl.CryptoUpdater;
 import gz.helpp.strategypattern.InterfacciaControllerGrafico;
@@ -73,7 +75,8 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
     }
 
     public void update() throws IOException {
-        BitstampMarketDataService bitstampMarketDataService = cryptoUpdater.getState();
+        BeanMarketData beanMarketData = cryptoUpdater.getState();
+        BitstampMarketDataService bitstampMarketDataService = beanMarketData.getBitstampMarketDataService();
         if(displayedCrypto == null) return;
 
         for(int i = 0; i < displayedCrypto.size(); i++){
@@ -128,7 +131,7 @@ public class ControllerGraficoBuyMenu implements Observer, InterfacciaController
             String ticker = findSymbolForButton((Button) event.getSource(), 0, gridPane);
             String price1 = findSymbolForButton((Button) event.getSource(), 2, gridPane);
 
-            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransaction.Type.BUY, price1);
+            ControllerGraficoAskForQuantity controllerGraficoAskForQuantity = new ControllerGraficoAskForQuantity(ticker, ModelTransactionType.Type.BUY, price1);
             controllerGraficoAskForQuantity.initializer();
 
         });

@@ -10,8 +10,8 @@ public class ControllerGraficoStart extends Application{
     @Override
     public void start(Stage stage) throws IOException {
         new ControllerGraficoLogInScreen().initializer();
-    }
 
+    }
 
     public static void main(String[] args) {
         launch();

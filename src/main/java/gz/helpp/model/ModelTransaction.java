@@ -3,20 +3,19 @@ package gz.helpp.model;
 import io.jsondb.annotation.Document;
 import io.jsondb.annotation.Id;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Document(collection = "transactions", schemaVersion = "1.0")
-public class ModelTransaction{
+public class ModelTransaction implements Serializable{
     @Id
     private int transactionId;
     private String usernameAssociated;
     private String cryptoTicker;
     private double quantity;
     private double price; //expressed in euro
-    public enum Type{
-        BUY,SELL,DEPOSIT,WITHDRAW
-    }
-    private Type type;
+
+    private ModelTransactionType.Type type;
     private Date date;
 
     public int getTransactionId() {
@@ -49,7 +48,7 @@ public class ModelTransaction{
         return this.price;
     }
 
-    public Type getType() {
+    public ModelTransactionType.Type getType() {
 
         return this.type;
     }
@@ -74,7 +73,7 @@ public class ModelTransaction{
         this.quantity = quantity;
     }
 
-    public void setType(Type type) {
+    public void setType(ModelTransactionType.Type type) {
 
         this.type = type;
     }
