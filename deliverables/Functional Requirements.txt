@@ -1,3 +1,0 @@
-1) The system shall provide multiple payment methods for purchasing cryptocurrencies, such as credit/debit cards and bank transfers
-2) The system shall display a list of available cryptocurrencies along with their current market prices
-3) The system shall check the user's funds before proceeding with purchase and withdrawal operations
