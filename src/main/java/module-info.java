@@ -7,8 +7,7 @@ module gz.helpp{
     requires jsondb.core;
     requires com.googlecode.lanterna;
     requires java.desktop;
-    requires org.slf4j;
-
+    requires slf4j.api;
 
     opens gz.helpp.controllergrafici.javafx to javafx.fxml;
     exports gz.helpp.controllergrafici.javafx to javafx.graphics;

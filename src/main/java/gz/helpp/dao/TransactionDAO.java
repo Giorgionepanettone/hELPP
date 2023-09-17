@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TransactionDAO implements DAO<ModelTransaction>{
 
-    private final Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/e-market", "admin", System.getenv("DBPWD"));
+    private final Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/e-market", "root", System.getenv("DBPWD"));
     public TransactionDAO() throws SQLException {//empty cause variables are initialized when instance is created
     }
 
